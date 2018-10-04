@@ -1,0 +1,27 @@
+
+#login {
+    background: #d3d1d1;
+    margin: 180px auto;
+    width: 350px;
+    padding: 20px;
+    border-radius: 9px;
+	box-shadow: 3px 3px 8px 1px rgba(0, 0, 0, 0.25);
+    position: relative;
+}
+#login_ent{
+	text-align: center;
+    margin: 40px 0 12px 0;
+}
+
+body{
+	background-image: linear-gradient(#9608F4,#7D13C5);
+}
+
+#img_log{
+	border-radius: 50%;
+	height: 80px;
+    width: 80px;
+    position: absolute;
+    top: -30px;
+    left: 155px;
+}

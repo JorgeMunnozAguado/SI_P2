@@ -20,7 +20,7 @@
 
 	Una vez instalado podremos probarlo, accediendo a la dirección `http://localhost`.
 
-3) Unir Apache y python.
+3) Unir Apache y python con el módulo `wsgi`.
 
 	Para hacer uso de las dos herramientas utilizaremos el módulo `wsgi`, el cual habrá que activa en nuestro linux.
 	```
@@ -30,44 +30,25 @@
 Una vez instalados los anteriores paquetes toca configurar el servidor.
 Los siguientes pasos los hemos realizado con la ayuda de la página <https://tecadmin.net/install-apache-mod-wsgi-on-ubuntu-18-04-bionic/>
 
-1) En primer lugar vamos a crear un nuevo sitio web.
+1) En primer lugar, debemos copiar el repositorio, entrega a la carpeta `/var/www`.
 
-	Para ello debemos ejecutar los siguientes comandos, cambiando `%name%` por el nombre de la pagina web.
-	```
-	sudo mkdir /var/www/%name%.com
-	cd /var/www/%name%.com
-	sudo mkdir /public_html
-	sudo chown -R $USER:$USER /public_html
-	sudo chmod -R 755 /var/www
-	```
-
-2) El siguiente paso será crear un fichero `.wsgi`.
+2) El siguiente paso será modificar la configuración de Apache para que utilice el módulo `wsgi`.
 	
-	Crearemos un fichero de prueba.
+	
+	Debemos abrir el siguiente archivo:
+	```
+	sudo vim /etc/apache2/conf-available/mod-wsgi.conf
+	```
+
+	A continuación, insertamos el siguiente código:
+	```
+	WSGIScriptAlias / /var/www/html/server.py
+	```
+
+3) Por último, solo necesitamos reiniciar Apache.
 
 	```
-	cd public_html
-	vim holaMundo.wsgi
-	```
-
-	El cuál contendrá la siguiente información:
-
-	```wsgi
-	import os
-	import sys
-
-	sys.path.append('/var/www/%name%.com/application')
-
-	os.environ['PYTHON_EGG_CACHE'] = '/var/www/%name%.com/.python-egg'
-
-	def application(environ, start_response):
-		status = '200 OK'
-		output = 'Hello World!'
-
-		response_headers = [('Content-type', 'text/plain'),
-                        ('Content-Length', str(len(output)))]
-		start_response(status, response_headers)
-
-		return [output]
+	sudo a2enconf mod-wsgi
+	sudo systemctl restart apache2
 	```
 

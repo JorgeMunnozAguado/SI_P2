@@ -28,6 +28,7 @@
 	```
 
 Una vez instalados los anteriores paquetes toca configurar el servidor.
+Los siguientes pasos los hemos realizado con la ayuda de la página <https://tecadmin.net/install-apache-mod-wsgi-on-ubuntu-18-04-bionic/>
 
 1) En primer lugar vamos a crear un nuevo sitio web.
 
@@ -55,9 +56,9 @@ Una vez instalados los anteriores paquetes toca configurar el servidor.
 	import os
 	import sys
 
-	sys.path.append('/var/www/html/example.com/application')
+	sys.path.append('/var/www/%name%.com/application')
 
-	os.environ['PYTHON_EGG_CACHE'] = '/var/www/html/example.com/.python-egg'
+	os.environ['PYTHON_EGG_CACHE'] = '/var/www/%name%.com/.python-egg'
 
 	def application(environ, start_response):
 		status = '200 OK'

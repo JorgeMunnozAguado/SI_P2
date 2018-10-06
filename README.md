@@ -48,7 +48,8 @@ Para ayudarnos con la instalación y puesta en marcha del servidos, nos hemos ap
 	cd /etc/apache2/sites-available/
 	```
 
-	Crearemos el fichero `SI_P2.conf` el cuál contedrá la configuración de nuestro host virtual:
+	Creamos el fichero `SI_P2.conf` el cuál contedrá la configuración de nuestro host virtual.
+	Este fichero ya se encuentra en nuestro repositorio `SI_P2`. Sería suficiente con copiarlo de nuestra carpeta a `/etc/apache2/sites-available/`.
 
 	```conf
 	<VirtualHost *:80>

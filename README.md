@@ -53,10 +53,10 @@ Para ayudarnos con la instalación y puesta en marcha del servidos, nos hemos ap
 	```conf
 	<VirtualHost *:80>
 
-        	serverName      flaskapp.com
-	        WSGIScriptAlias / /var/www/flask/flask.wsgi
+        	serverName      nitflix.com
+	        WSGIScriptAlias / /var/www/SI_P2/server.wsgi
 
-        	<Directory /var/www/flask>
+        	<Directory /var/www/SI_P2>
 
                 	Order allow,deny
 	                Allow from all

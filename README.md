@@ -10,6 +10,11 @@
 	```
 	sudo apt install pip
 	```
+	Para que podamos instalar la librería `Flask` para Python.
+	```
+	pip install flask
+	```
+
 
 2) Instalar Apache
 
@@ -20,6 +25,12 @@
 
 	Una vez instalado podremos probarlo, accediendo a la dirección `http://localhost`.
 
+
+	Instalaremos también el host virtual:
+	```
+	sudo apt install virtualenv
+	```
+
 3) Unir Apache y python con el módulo `wsgi`.
 
 	Para hacer uso de las dos herramientas utilizaremos el módulo `wsgi`, el cual habrá que activa en nuestro linux.
@@ -28,28 +39,59 @@
 	```
 
 Una vez instalados los anteriores paquetes toca configurar el servidor.
-Los siguientes pasos los hemos realizado con la ayuda de la página <https://tecadmin.net/install-apache-mod-wsgi-on-ubuntu-18-04-bionic/>
+Para ayudarnos con la instalación y puesta en marcha del servidos, nos hemos apoyado en el video:  <https://www.youtube.com/watch?v=wq0saslschw>
 
-1) En primer lugar, debemos copiar el repositorio, entrega a la carpeta `/var/www`.
+1) En primer lugar, debemos configurar Apache.
 
-2) El siguiente paso será modificar la configuración de Apache para que utilice el módulo `wsgi`.
-	
-	
-	Debemos abrir el siguiente archivo:
+	Para ello debemos acceder a la siguiente carpeta. Es recomendable acceder como `root` con el comando `sudo su`.
 	```
-	sudo vim /etc/apache2/conf-available/mod-wsgi.conf
+	cd /etc/apache2/sites-available/
 	```
 
-	A continuación, insertamos el siguiente código:
-	```
-	WSGIScriptAlias / /var/www/html/server.py
+	Crearemos el fichero `SI_P2.conf` el cuál contedrá la configuración de nuestro host virtual:
+
+	```conf
+	<VirtualHost *:80>
+
+        	serverName      flaskapp.com
+	        WSGIScriptAlias / /var/www/flask/flask.wsgi
+
+        	<Directory /var/www/flask>
+
+                	Order allow,deny
+	                Allow from all
+
+        	</Directory>
+
+	        ErrorLog ${APACHE_LOG_DIR}/error.log
+        	CustomLog ${APACHE_LOG_DIR}/error.log combined
+
+	</VirtualHost>
 	```
 
-3) Por último, solo necesitamos reiniciar Apache.
 
-	```
-	sudo a2enconf mod-wsgi
-	sudo systemctl restart apache2
+2) A continuación, deberemos copiar el repositorio, entrega, a la carpeta `/var/www`.
+
+	Esta carpeta, con nombre `SI_P2` cuenta con el archivo `init.py`, el cual contiene la aplicación Flask.
+
+	Además, esta carpeta cuenta con además con el archivo `server.wsgi`, el cual contiene la siguiente información:
+
+	```python
+	import sys
+
+	sys.path.insert(0, "/var/www/SI_P2/")
+
+	from init import app as application
 	```
 
-REFERENCIA: <https://www.youtube.com/watch?v=wq0saslschw>
+3) Por último, debemos mostrar a Apache2 la configuración realizada.
+
+	Con los siguientes comandos pediremos a Apache que habilite nuestra página web y desabilite la que se encuentra por defecto. Además, reiniciamos el servidor Apache para que carge la nueva configuración.
+	```
+	a2ensite SI_P2.conf
+	a2dissite 000-default.conf
+	systemctl reload apache2
+	```
+
+Una vez seguidos estos pasos podremos acceder a nuestra página web a través de la direccion `http://localhost`.
+

@@ -10,7 +10,7 @@ def index():
 def last():
     return render_template("last.html")
 
-@app.route("/full")
+@app.route("/fullFilm")
 def fullFilm():
     return render_template("fullFilm.html")
 

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Últimas Películas</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<link rel="stylesheet" href="styles/{% block style %}{% endblock %}.css">
+		<link rel="stylesheet" href="styles/general.css">
+		<link rel="stylesheet" href="styles/styles.css">
+		<link rel="shortcut icon" href="images/logotipo-aux.png" type="image/x-icon">
+	</head>
+	<body>
+		<div id="header">
+		
+			<div id="logo">
+				<img src="images/logotipo.png" alt="logo"/>
+			</div>
+			
+			<a href="basket">
+				<div id="carrito">
+					<img src="images/carrito.png" alt="carrito"/>
+				</div>
+			</a>
+			
+		</div>
+		
+		<div id="menu">
+			
+			<div id="user_info">
+			
+				<img src="images/imagen.jpg" alt="foto-perfil"/>
+				<h1>Jorge Muñoz Aguado</h1>
+				<a href="/">Cerrar Sesión</a>
+			
+			</div>
+			
+			<div class="links">
+					
+				{% block menu %}
+				<a href="last">Últimas Películas</a>
+				<a href="history">Historial de Compra</a>
+				<a href="basket">Carrito</a>
+				{% endblock %}
+				
+			</div>
+			
+			<div id="search">
+			
+				<form action="search">
+					<input type="text" name="search" placeholder="Buscar" class="input_text especial">
+					<select name="programa" class="input_text especial">    
+					   <option value="Pelicula" selected="selected">Pelicula</option>
+					   <option value="Serie">Serie</option>
+					   <option value="Tutorial">Tutorial</option>
+					</select>
+					<input id="button_search" type="submit" value="Submit" class="button">
+				</form> 
+			
+			</div>
+			
+		</div>
+		
+		<div id="body">
+			
+			{% block content %}{% endblock %}
+		
+		</div>
+		<div class="footer">
+		
+			<p>Alberto Moreno Brasero y Jorge Muñoz Aguado</p>
+		
+		</div>
+	</body>
+</html>

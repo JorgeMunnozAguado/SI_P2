@@ -1,98 +1,41 @@
-<!DOCTYPE html>
-<html lang="es">
-	<head>
-		<title>Historial de Compra</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-		<link rel="stylesheet" href="styles/history.css">
-		<link rel="stylesheet" href="styles/general.css">
-		<link rel="stylesheet" href="styles/styles.css">
-		<link rel="shortcut icon" href="images/logotipo-aux.png" type="image/x-icon">
-	</head>
-	<body>
-		<div id="header">
-		
-			<div id="logo">
-				<img src="images/logotipo.png" alt="logo"/>
-			</div>
-			
-			<a href="basket">
-				<div id="carrito">
-					<img src="images/carrito.png" alt="carrito"/>
-				</div>
-			</a>
-			
-		</div>
-		
-		<div id="menu">
-			
-			<div id="user_info">
-			
-				<img src="images/imagen.jpg" alt="foto-perfil"/>
-				<h1>Jorge Muñoz Aguado</h1>
-				<a href="/">Cerrar Sesión</a>
-			
-			</div>
-			
-			<div class="links">
-					
-				<a href="last">Últimas Películas</a>
-				<p>Historial de Compra</p>
-				<a href="basket">Carrito</a>
-				
-			</div>
-			
-			<div id="search">
-			
-				<form action="search">
-					<input type="text" name="search" placeholder="Buscar" class="input_text especial">
-					<select name="programa" class="input_text especial">    
-					   <option value="Pelicula" selected="selected">Pelicula</option>
-					   <option value="Serie">Serie</option>
-					   <option value="Tutorial">Tutorial</option>
-					</select>
-					<input id="button_search" type="submit" value="Submit" class="button">
-				</form> 
-			
-			</div>
-			
-		</div>
-		
-		<div id="body">
-			
-			<h1>Historial de Compra</h1>
-			
-			<table>
-			
-				<tr>
-					<th class="date">Fecha de Compra</th> <th class="name">Nombre de la Película</th> <th class="price">Precio</th>
-				</tr>
-				<tr>
-					<td class="date">21/09/2018</td> <td>Star Wars VII</td> <td class="price">15 €</td>
-				</tr>
-				<tr>
-					<td class="date">21/09/2018</td> <td>Star Wars VII</td> <td class="price">15 €</td>
-				</tr>
-				<tr>
-					<td class="date">21/09/2018</td> <td>Star Wars VII</td> <td class="price">15 €</td>
-				</tr>
-				<tr>
-					<td class="date">21/09/2018</td> <td>Star Wars VII</td> <td class="price">15 €</td>
-				</tr>
-				<tr>
-					<td class="date">21/09/2018</td> <td>Star Wars VII</td> <td class="price">15 €</td>
-				</tr>
-				<tr>
-					<td class="date">21/09/2018</td> <td>Star Wars VII</td> <td class="price">15 €</td>
-				</tr>
-			
-			</table>
-			
-		
-		</div>
-		<div class="footer">
-		
-			<p>Alberto Moreno Brasero y Jorge Muñoz Aguado</p>
-		
-		</div>
-	</body>
-</html>
+{% extends "style.html" %}
+
+{% block style %}history{% endblock %}
+
+{% block menu %}
+<a href="last">Últimas Películas</a>
+<p>Historial de Compra</p>
+<a href="basket">Carrito</a>
+{% endblock %}
+
+{% block content %}
+<h1>Historial de Compra</h1>
+
+<table>
+
+	<tr>
+		<th class="date">Fecha de Compra</th> <th class="name">Nombre de la Película</th> <th class="price">Precio</th>
+	</tr>
+	<tr>
+		<td class="date">21/09/2018</td> <td>Star Wars VII</td> <td class="price">15 €</td>
+	</tr>
+	<tr>
+		<td class="date">21/09/2018</td> <td>Star Wars VII</td> <td class="price">15 €</td>
+	</tr>
+	<tr>
+		<td class="date">21/09/2018</td> <td>Star Wars VII</td> <td class="price">15 €</td>
+	</tr>
+	<tr>
+		<td class="date">21/09/2018</td> <td>Star Wars VII</td> <td class="price">15 €</td>
+	</tr>
+	<tr>
+		<td class="date">21/09/2018</td> <td>Star Wars VII</td> <td class="price">15 €</td>
+	</tr>
+	<tr>
+		<td class="date">21/09/2018</td> <td>Star Wars VII</td> <td class="price">15 €</td>
+	</tr>
+
+</table>
+{% endblock %}
+
+

@@ -32,7 +32,7 @@ def index():
                 return resp
 
             else:
-                return "POST"
+                return render_template("index-fail.html")
 
         else:
             return render_template("index.html")
@@ -55,7 +55,7 @@ def history():
 
 @app.route("/sing_up")
 def registro():
-    return checkSession("registro.html")
+    return render_template("registro.html")
 
 @app.route("/search", methods=['GET'])
 def search():
@@ -88,7 +88,9 @@ def send_js(path):
 def send_styles(path):
     return send_from_directory('templates/styles', path)
 
-
+@app.route('/scripts/<path:path>')
+def send_scripts(path):
+    return send_from_directory('templates/scripts', path)
 
 def checkSession(url):
 

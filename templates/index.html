@@ -1,13 +1,18 @@
 <!DOCTYPE html>
+
 <html lang="es">
 	<head>
+        <title>Nitflix</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 		<link rel="shortcut icon" href="images/logotipo-aux.png" type="image/x-icon">
 		<link rel="stylesheet" type="text/css" href="styles/index.css">
 		<link rel="stylesheet" type="text/css" href="styles/general.css">
-		<title>Nitflix</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <script src="scripts/check.js"></script>
+        <script src="scripts/login.js"></script>
 	</head>
 	<body>
+    
+		{% block log %}<div id="log"></div>{% endblock %}
     
 		<div id="login">
         
@@ -15,12 +20,12 @@
         
 			<div id="login_ent">
 				
-				<form action="/" method="POST">
+				<form action="/" method="POST" onsubmit="return check()">
 					<div class="input_mark">
-						<input class="input_text" type="text" placeholder="Usuario" name="username">
+						<input class="input_text" type="text" placeholder="Usuario" name="username" id="name">
 					</div><br>
 					<div class="input_mark">
-						<input class="input_text" type="password" placeholder="Contrase&ntilde;a" name="password">
+						<input class="input_text" type="password" placeholder="Contrase&ntilde;a" name="password" id="password">
 					</div>
 					<br>
 					<input class="button" type="submit" value="Entrar">

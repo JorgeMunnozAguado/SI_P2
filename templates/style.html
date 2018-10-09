@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Últimas Películas</title>
+		<title>{% block title %}{% endblock %}</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 		<link rel="stylesheet" href="styles/{% block style %}{% endblock %}.css">
 		<link rel="stylesheet" href="styles/general.css">
 		<link rel="stylesheet" href="styles/styles.css">
 		<link rel="shortcut icon" href="images/logotipo-aux.png" type="image/x-icon">
+        {% block script %}{% endblock %}
 	</head>
 	<body>
 		<div id="header">

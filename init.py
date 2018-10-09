@@ -1,5 +1,6 @@
 from flask import Flask, render_template, send_from_directory, request, redirect, make_response
 import datetime
+import Pelicula
 
 app = Flask(__name__)
 
@@ -57,12 +58,26 @@ def history():
 def registro():
     return render_template("registro.html")
 
-@app.route("/search", methods=['GET'])
+@app.route("/search", methods=['POST','GET'])
 def search():
+	pelis=[]
+	pelis_j=json.loads(open('data/catalogo.json').read())
     if request.method == 'GET':
-        return "hola"
-    else:
-        return render_template("search.html")
+		search=request.args.get('search')
+		tipo=request.args.get('programa')
+		for iter_pelis in pelis_j["peliculas"]:
+			if iter_pelis['titulo'].lower() == search.lower():
+				pelis.append(Pelicula(iter_pelis['titulo'],iter_pelis['precio'],iter_pelis['poster'],iter_pelis['imgfondo'],iter_pelis['director'],iter_pelis['estreno'],iter_pelis['desc']))
+        return render_template("search.html",peliculas=pelis)
+    elif request.method == 'POST':
+		search=request.form['search']
+		tipo=request.form['programa']
+		for iter_pelis in pelis_j["peliculas"]:
+			if iter_pelis['titulo'].lower() == search.lower():
+				pelis.append(Pelicula(iter_pelis['titulo'],iter_pelis['precio'],iter_pelis['poster'],iter_pelis['imgfondo'],iter_pelis['director'],iter_pelis['estreno'],iter_pelis['desc']))
+		return render_template("search.html",peliculas=pelis)
+	else:
+        return redirect(url_for('last'))
 
 @app.route("/close")
 def closeSession():

@@ -2,7 +2,6 @@
 
 function addToBasket(id, name, href) {
     
-    var i;
     var text = getCookie("basket");
         
     var json_ret = '{"films":[';
@@ -22,9 +21,44 @@ function addToBasket(id, name, href) {
     setCookie("basket", json_ret, "30");
     
     id.classList.add('basket-get');
+    id.onclick = function(){ removeFromBasket(this, name, href) }
     id.childNodes[0].src = 'images/carrito-less.png';
 }
 
+function removeFromBasket(id, name, href) {
+
+    var text = getCookie("basket");
+
+    var json_ret = '{"films":[';
+
+    if (text == "") return;
+
+    var json = JSON.parse(text);
+
+    boolean = false;
+    
+    for (i = 0; i < json.films.length; i++) {
+
+        /*Comprobar ...*/
+        if ( boolean ) json_ret += ",";
+        
+        if ((json.films[i].name != name) && (json.films[i].href != href)) {
+            
+            json_ret += JSON.stringify(json.films[i]);
+            boolean = true;
+        }        
+        /*... Comprobar*/
+
+    }
+
+    json_ret += ']}'
+    
+    setCookie("basket", json_ret, "30");
+
+    id.classList.remove('basket-get');
+    id.onclick = function(){ addToBasket(this, name, href) }
+    id.childNodes[0].src = 'images/carrito-plus.png';
+}
 
 /* Function getCookie from WCS <https://www.w3schools.com/js/js_cookies.asp> */
 function getCookie(cname) {

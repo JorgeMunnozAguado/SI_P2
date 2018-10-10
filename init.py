@@ -14,16 +14,18 @@ def resultadoPeliculas(search,tipo,pelis):
     pelisFin=[]
     mayor=0
     list_search=search.lower().split(" ")
-	if tipo == "titulo":
+    if tipo == "titulo":
         for iter_pelis in pelis:
             aux=iter_pelis.titulo.lower().split(" ")
             cont=0
             for elem in aux:
                 for elemS in list_search:
                     if elem == elemS:
-                        cont++
+                        cont=cont+1
                         break
             pelis_cont[iter_pelis]=cont
+            if cont > mayor:
+                mayor=cont
     elif tipo == "director":
         for iter_pelis in pelis:
             aux=iter_pelis.director.lower().split(" ")
@@ -31,15 +33,14 @@ def resultadoPeliculas(search,tipo,pelis):
             for elem in aux:
                 for elemS in list_search:
                     if elem == elemS:
-                        cont++
+                        cont=cont+1
                         break
             pelis_cont[iter_pelis]=cont
-    nums=pelis_cont.values().sort(reverse=True)
-    if len(nums) > 0:
-        mayor=nums[0]
-        for iter2 in pelis:
-            if pelis_cont[iter2] == mayor:
-                pelisFin.append(Pelicula(iter2.titulo,iter2.precio,iter2.poster,iter2.imgfondo,iter2.director,iter2.estreno,iter2.desc))
+            if cont > mayor:
+                mayor=cont
+    for iter2 in pelis:
+        if pelis_cont[iter2] == mayor:
+            pelisFin.append(Pelicula(iter2.titulo,iter2.precio,iter2.poster,iter2.imgfondo,iter2.director,iter2.estreno,iter2.desc))
     return pelisFin
 
 
@@ -82,7 +83,7 @@ def index():
 def last():
     json_url = os.path.join(SITE_ROOT, "data", "catalogo.json")
     pelis=jsonAPelicula(json_url)
-    return checkSession("last.html",peliculas=pelis)
+    return checkSession("last.html",pelis)
 
 @app.route("/fullFilm")
 def fullFilm():
@@ -145,10 +146,10 @@ def send_styles(path):
 def send_scripts(path):
     return send_from_directory('templates/scripts', path)
 
-def checkSession(url):
+def checkSession(url,peliculas):
 
     if "SessionCookie" in request.cookies:
-        return render_template(url)
+        return render_template(url,peliculas=peliculas)
     else:
         return redirect("/")
 

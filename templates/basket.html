@@ -12,21 +12,21 @@
 
 {% block content %}
 <h1>Carrito de Compra</h1>
-<p id="total-price">Precio Total: <b>45 €</b></p>
+<p id="total-price">Precio Total: <b>{{ precioTotal }} €</b></p>
 
 {% for film in films %}
 
 <a  href="fullFilm">
 	<div class="film">
 		<div class="film_image">
-			<img src="images/cartel-SWLosultimosjedi.jpg" alt="SW-8"/>
+			<img src="{{ film.poster }}" alt="SW-8"/>
 		</div>
 		<div class="container">
-			<p>film.name</p>
-			<h1>Descripción: </h1><div>film.description</div>
+			<p>{{ film.titulo }}</p>
+			<h1>Descripción: </h1><div>{{ film.desc }}</div>
 		</div>
 		<div class="delete available" title="Costo">Eliminar</div>
-		<p class="price">film.price</p>
+		<p class="price">{{ film.precio }} €</p>
 	</div>
 </a>
 {% endfor %}

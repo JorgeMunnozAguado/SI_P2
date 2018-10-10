@@ -1,49 +1,13 @@
 from flask import Flask, render_template, send_from_directory, request, redirect, make_response
 import datetime
 from pelicula import Pelicula
-from utilficheros import jsonAPelicula
+from utilficheros import jsonAPelicula, resultadoPeliculas, searchFilms
 import os
 import json
 
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
 app = Flask(__name__)
-
-
-def resultadoPeliculas(search,tipo,pelis):
-    pelis_cont={}
-    pelisFin=[]
-    mayor=0
-    list_search=search.lower().split(" ")
-    if tipo == "titulo":
-        for iter_pelis in pelis:
-            aux=iter_pelis.titulo.lower().split(" ")
-            cont=0
-            for elem in aux:
-                for elemS in list_search:
-                    if elem == elemS:
-                        cont=cont+1
-                        break
-            pelis_cont[iter_pelis]=cont
-            if cont > mayor:
-                mayor=cont
-    elif tipo == "director":
-        for iter_pelis in pelis:
-            aux=iter_pelis.director.lower().split(" ")
-            cont=0
-            for elem in aux:
-                for elemS in list_search:
-                    if elem == elemS:
-                        cont=cont+1
-                        break
-            pelis_cont[iter_pelis]=cont
-            if cont > mayor:
-                mayor=cont
-    for iter2 in pelis:
-        if pelis_cont[iter2] == mayor:
-            pelisFin.append(Pelicula(iter2.titulo,iter2.precio,iter2.poster,iter2.imgfondo,iter2.director,iter2.estreno,iter2.desc))
-    return pelisFin
-
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -93,22 +57,25 @@ def fullFilm(name):
 @app.route("/basket")
 def basket():
 
-    if "basket" in request.cookies:
+    if "basket" in request.cookies and "SessionCookie" in request.cookies:
 
-        try:
-            cookie = request.cookies.get('basket')
-            obj = json.loads(cookie)
+        cookie = request.cookies.get('basket')
+        obj = json.loads(cookie)
 
-            films = obj["films"]
+        buscar = obj["films"]
 
-            for film in films:
+        json_url = os.path.join(SITE_ROOT, "data", "catalogo.json")
+        pelis = jsonAPelicula(json_url)
 
+        ret = searchFilms(buscar, pelis)
 
+        return render_template("basket.html", films = ret[0], precioTotal = ret[1])
 
-        except ValueError:
-
-    # Caso de que no haya nada decir que no hay nada
-    return checkSession("basket.html")
+    elif "SessionCookie" in request.cookies:
+        return checkSession("basket.html")
+        
+    else:
+        return redirect("/")
 
 @app.route("/history")
 def history():

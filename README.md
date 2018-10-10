@@ -1,3 +1,8 @@
+
+Para acceder a la aplicación web debemos ingresar un nombre y una contraseña. En esta primera versión, la plataforma no cuenta con soporte para usuarios, por lo que hemos creado un "usuario" por defecto:
+> nombre = admin
+> contraseña = admin
+
 # Instalación
 
 1) Instalar python.

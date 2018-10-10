@@ -1,7 +1,10 @@
 from flask import Flask, render_template, send_from_directory, request, redirect, make_response
 import datetime
 from pelicula import Pelicula
-import utilficheros 
+from utilficheros import jsonAPelicula
+import os
+
+SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
 app = Flask(__name__)
 
@@ -61,23 +64,25 @@ def registro():
 
 @app.route("/search", methods=['POST','GET'])
 def search():
-	pelis=jsonAPelicula('data/catalogo.json')
-	pelisFin=[]
+
+    json_url = os.path.join(SITE_ROOT, "data", "catalogo.json")
+    pelis=jsonAPelicula(json_url)
+    pelisFin=[]
     if request.method == 'GET':
-		search=request.args.get('search')
-		tipo=request.args.get('programa')
-		for iter_pelis in pelis:
-			if iter_pelis.titulo.lower() == search.lower():
-				pelisFin.append(Pelicula(iter_pelis.titulo,iter_pelis.precio,iter_pelis.poster,iter_pelis.imgfondo,iter_pelis.director,iter_pelis.estreno,iter_pelis.desc))
+        search=request.args.get('search')
+        tipo=request.args.get('programa')
+        for iter_pelis in pelis:
+            if iter_pelis.titulo.lower() == search.lower():
+                pelisFin.append(Pelicula(iter_pelis.titulo,iter_pelis.precio,iter_pelis.poster,iter_pelis.imgfondo,iter_pelis.director,iter_pelis.estreno,iter_pelis.desc))
         return render_template("search.html",peliculas=pelisFin)
     elif request.method == 'POST':
-		search=request.form['search']
-		tipo=request.form['programa']
-		for iter_pelis in pelis:
-			if iter_pelis.titulo.lower() == search.lower():
-				pelisFin.append(Pelicula(iter_pelis.titulo,iter_pelis.precio,iter_pelis.poster,iter_pelis.imgfondo,iter_pelis.director,iter_pelis.estreno,iter_pelis.desc))
+        search=request.form['search']
+        tipo=request.form['programa']
+        for iter_pelis in pelis:
+            if iter_pelis.titulo.lower() == search.lower():
+                pelisFin.append(Pelicula(iter_pelis.titulo,iter_pelis.precio,iter_pelis.poster,iter_pelis.imgfondo,iter_pelis.director,iter_pelis.estreno,iter_pelis.desc))
         return render_template("search.html",peliculas=pelisFin)
-	else:
+    else:
         return redirect(url_for('last'))
 
 @app.route("/close")

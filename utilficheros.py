@@ -1,4 +1,5 @@
-
+import json
+from pelicula import Pelicula
 def jsonAPelicula(fichero):
 	pelis=[]
 	pelis_j=json.loads(open(fichero).read())

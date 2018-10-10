@@ -23,10 +23,10 @@
 				
 				<form action="/" method="POST" onsubmit="return check()">
 					<div class="input_mark">
-						<input class="input_text" type="text" placeholder="Usuario" name="username" id="name">
+						<input {% block classN %}class="input_text"{% endblock %} type="text" placeholder="Usuario" name="username" id="name">
 					</div><br>
 					<div class="input_mark">
-						<input class="input_text" type="password" placeholder="Contrase&ntilde;a" name="password" id="password">
+						<input {% block classP %}class="input_text"{% endblock %} type="password" placeholder="Contrase&ntilde;a" name="password" id="password">
 					</div>
 					<br>
 					<input type="checkbox" name="keep" id="keepSession">Recordarme</input>

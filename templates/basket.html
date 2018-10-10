@@ -14,47 +14,22 @@
 <h1>Carrito de Compra</h1>
 <p id="total-price">Precio Total: <b>45 €</b></p>
 
-<a href="fullFilm">
-	<div class="film">
-		<div class="film_image">
-			<img src="images/cartel-SWLosultimosjedi.jpg" alt="SW-8"/>
-		</div>
-		<div class="container">
-			<p>Star Wars VIII</p>
-			<h1>Descripción: </h1><div>La Primera Orden ha acorralado a los últimos miembros de la resistencia. Su última esperanza es que Finn se introduzca en la nave de Snoke y desactive el radar que les permite localizarlos. Mientras él trata, en compañía de una soldado de la Resistencia, de cumplir esta misión imposible, Rey se encuentra lejos, intentando convencer a Luke Skywalker de que la entrene y la convierta en la última jedi.</div>
-		</div>
-		<div class="delete available" title="Costo">Eliminar</div>
-		<p class="price">15 €</p>
-	</div>
-</a>
+{% for film in films %}
 
-<a href="fullFilm">
+<a  href="fullFilm">
 	<div class="film">
 		<div class="film_image">
 			<img src="images/cartel-SWLosultimosjedi.jpg" alt="SW-8"/>
 		</div>
 		<div class="container">
-			<p>Star Wars VIII</p>
-			<h1>Descripción: </h1><div>La Primera Orden ha acorralado a los últimos miembros de la resistencia. Su última esperanza es que Finn se introduzca en la nave de Snoke y desactive el radar que les permite localizarlos. Mientras él trata, en compañía de una soldado de la Resistencia, de cumplir esta misión imposible, Rey se encuentra lejos, intentando convencer a Luke Skywalker de que la entrene y la convierta en la última jedi.</div>
+			<p>film.name</p>
+			<h1>Descripción: </h1><div>film.description</div>
 		</div>
 		<div class="delete available" title="Costo">Eliminar</div>
-		<p class="price">15 €</p>
+		<p class="price">film.price</p>
 	</div>
 </a>
-
-<a href="fullFilm">
-	<div class="film">
-		<div class="film_image">
-			<img src="images/cartel-SWLosultimosjedi.jpg" alt="SW-8"/>
-		</div>
-		<div class="container">
-			<p>Star Wars VIII</p>
-			<h1>Descripción: </h1><div>La Primera Orden ha acorralado a los últimos miembros de la resistencia. Su última esperanza es que Finn se introduzca en la nave de Snoke y desactive el radar que les permite localizarlos. Mientras él trata, en compañía de una soldado de la Resistencia, de cumplir esta misión imposible, Rey se encuentra lejos, intentando convencer a Luke Skywalker de que la entrene y la convierta en la última jedi.</div>
-		</div>
-		<div class="delete available" title="Costo">Eliminar</div>
-		<p class="price">15 €</p>
-	</div>
-</a>
+{% endfor %}
 
 <a class="buy bought">Tramitar Compra</a>
 {% endblock %}

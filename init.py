@@ -3,6 +3,7 @@ import datetime
 from pelicula import Pelicula
 from utilficheros import jsonAPelicula
 import os
+import json
 
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
@@ -52,6 +53,22 @@ def fullFilm():
 
 @app.route("/basket")
 def basket():
+
+    if "basket" in request.cookies:
+
+        try:
+            cookie = request.cookies.get('basket')
+            obj = json.loads(cookie)
+
+            films = obj["films"]
+
+            for film in films:
+
+
+
+        except ValueError:
+
+    # Caso de que no haya nada decir que no hay nada
     return checkSession("basket.html")
 
 @app.route("/history")

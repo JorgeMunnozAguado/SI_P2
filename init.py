@@ -8,6 +8,42 @@ SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
 app = Flask(__name__)
 
+
+def resultadoPeliculas(search,tipo,pelis):
+    pelis_cont={}
+    pelisFin=[]
+    mayor=0
+    list_search=search.lower().split(" ")
+	if tipo == "titulo":
+        for iter_pelis in pelis:
+            aux=iter_pelis.titulo.lower().split(" ")
+            cont=0
+            for elem in aux:
+                for elemS in list_search:
+                    if elem == elemS:
+                        cont++
+                        break
+            pelis_cont[iter_pelis]=cont
+    elif tipo == "director":
+        for iter_pelis in pelis:
+            aux=iter_pelis.director.lower().split(" ")
+            cont=0
+            for elem in aux:
+                for elemS in list_search:
+                    if elem == elemS:
+                        cont++
+                        break
+            pelis_cont[iter_pelis]=cont
+    nums=pelis_cont.values().sort(reverse=True)
+    if len(nums) > 0:
+        mayor=nums[0]
+        for iter2 in pelis:
+            if pelis_cont[iter2] == mayor:
+                pelisFin.append(Pelicula(iter2.titulo,iter2.precio,iter2.poster,iter2.imgfondo,iter2.director,iter2.estreno,iter2.desc))
+    return pelisFin
+
+
+
 @app.route("/", methods=['GET', 'POST'])
 def index():
 
@@ -44,7 +80,9 @@ def index():
 
 @app.route("/last")
 def last():
-    return checkSession("last.html")
+    json_url = os.path.join(SITE_ROOT, "data", "catalogo.json")
+    pelis=jsonAPelicula(json_url)
+    return checkSession("last.html",peliculas=pelis)
 
 @app.route("/fullFilm")
 def fullFilm():
@@ -64,24 +102,18 @@ def registro():
 
 @app.route("/search", methods=['POST','GET'])
 def search():
-
     json_url = os.path.join(SITE_ROOT, "data", "catalogo.json")
     pelis=jsonAPelicula(json_url)
-    pelisFin=[]
     if request.method == 'GET':
         search=request.args.get('search')
         tipo=request.args.get('programa')
-        for iter_pelis in pelis:
-            if iter_pelis.titulo.lower() == search.lower():
-                pelisFin.append(Pelicula(iter_pelis.titulo,iter_pelis.precio,iter_pelis.poster,iter_pelis.imgfondo,iter_pelis.director,iter_pelis.estreno,iter_pelis.desc))
-        return render_template("search.html",peliculas=pelisFin)
+
+        return render_template("search.html",peliculas=resultadoPeliculas(search,tipo,pelis))
     elif request.method == 'POST':
         search=request.form['search']
         tipo=request.form['programa']
-        for iter_pelis in pelis:
-            if iter_pelis.titulo.lower() == search.lower():
-                pelisFin.append(Pelicula(iter_pelis.titulo,iter_pelis.precio,iter_pelis.poster,iter_pelis.imgfondo,iter_pelis.director,iter_pelis.estreno,iter_pelis.desc))
-        return render_template("search.html",peliculas=pelisFin)
+
+        return render_template("search.html",peliculas=resultadoPeliculas(search,tipo,pelis))
     else:
         return redirect(url_for('last'))
 

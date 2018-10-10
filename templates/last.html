@@ -14,120 +14,19 @@
 
 {% block content %}
 	<h1>Últimas Películas</h1>
-
+{% for peli in peliculas %}
 	<a href="fullFilm">
 		<div class="film">
 			<div class="film_image">
-				<div class="state available" title="Costo">Desde 25 €</div>
-				<img src="images/star_wars_la_amenaza_fantasma-.jpg" alt="star_wars_la_amenaza_fantasma-.jpg"/>
+				<div class="state available" title="Costo">Desde {{ peli.precio }} €</div>
+				<img src="{{ peli.poster }}" alt="{{ peli.poster }}"/>
 			</div>
 			<div class="container">
-				<p>Star Wars I</p>
-				<a class="add-basket" onclick="addToBasket(this, 'Star Wars I', 'fullFilm')" title="Quitar del Carrito"><img src="images/carrito-plus.png" alt="carrito-plus.png"/></a>
+				<p>{{ peli.titulo }}</p>
+				<a class="add-basket" onclick="addToBasket(this, {{ peli.titulo }}, 'fullFilm')" title="Quitar del Carrito"><img src="images/carrito-plus.png" alt="carrito-plus.png"/></a>
 			</div>
 		</div>
 	</a>
+{% endfor %}
 
-	<a href="fullFilm">
-		<div class="film">
-			<div class="film_image">
-				<div class="state available" title="Costo">Desde 15 €</div>
-				<img src="images/Ataque_dos_clones_poster.png" alt="Ataque_dos_clones_poster.png"/>
-			</div>
-			<div class="container">
-				<p>Star Wars II</p>
-				<a class="add-basket" onclick="addToBasket(this, 'Star Wars II', 'fullFilm')" title="Añadir al Carrito"><img src="images/carrito-plus.png" alt="carrito-plus.png"/></a>
-			</div>
-		</div>
-	</a>    
-	<a href="fullFilm">
-		<div class="film">
-			<div class="film_image">
-				<div class="state available" title="Costo">Desde 40 €</div>
-				<img src="images/Ep3_poster.jpg" alt="Ep3_poster.jpg"/>
-			</div>
-			<div class="container">
-				<p>Star Wars III</p>
-				<a class="add-basket" onclick="addToBasket(this, 'Star Wars III', 'fullFilm')" title="Añadir al Carrito"><img src="images/carrito-plus.png" alt="carrito-plus.png"/></a>
-			</div>
-		</div>
-	</a>
-
-	<a href="fullFilm">
-		<div class="film">
-			<div class="film_image">
-				<div class="state bought" title="Comprado">Comprado</div>
-				<img src="images/rogue-one.jpg" alt="rogue-one.jpg"/>
-			</div>
-			<div class="container">
-				<p>Rogue One</p>
-				<a class="add-basket" onclick="addToBasket(this, 'Rogue One', 'fullFilm')" title="Añadir al Carrito"><img src="images/carrito-plus.png" alt="carrito-plus.png"/></a>
-			</div>
-		</div>
-	</a>
-
-	<a href="fullFilm">
-		<div class="film">
-			<div class="film_image">
-				<div class="state bought" title="Comprado">Comprado</div>
-				<img src="images/episodio4.jpg" alt="episodio4.jpg"/>
-			</div>
-			<div class="container">
-				<p>Star Wars IV</p>
-				<a class="add-basket" onclick="addToBasket(this, 'Star Wars IV', 'fullFilm')" title="Añadir al Carrito"><img src="images/carrito-plus.png" alt="carrito-plus.png"/></a>
-			</div>
-		</div>
-	</a>
-
-	<a href="fullFilm">
-		<div class="film">
-			<div class="film_image">
-				<div class="state available" title="Costo">Desde 15 €</div>
-				<img src="images/star_wars_episode_v.jpg" alt="star_wars_episode_v.jpg"/>
-			</div>
-			<div class="container">
-				<p>Star Wars V</p>
-				<a class="add-basket" onclick="addToBasket(this, 'Star Wars V', 'fullFilm')" title="Añadir al Carrito"><img src="images/carrito-plus.png" alt="carrito-plus.png"/></a>
-			</div>
-		</div>
-	</a>
-
-	<a href="fullFilm">
-		<div class="film">
-			<div class="film_image">
-				<div class="state bought" title="Comprado">Comprado</div>
-				<img src="images/star_wars_episode_vi.jpg" alt="star_wars_episode_vi.jpg"/>
-			</div>
-			<div class="container">
-				<p>Star Wars VI</p>
-				<a class="add-basket" onclick="addToBasket(this, 'Star Wars VI', 'fullFilm')" title="Añadir al Carrito"><img src="images/carrito-plus.png" alt="carrito-plus.png"/></a>
-			</div>
-		</div>
-	</a>
-
-	<a href="fullFilm">
-		<div class="film">
-			<div class="film_image">
-				<div class="state bought" title="Comprado">Comprado</div>
-				<img src="images/Star_Wars_Episode_VII_The_Force_Awakens.png" alt="Star_Wars_Episode_VII_The_Force_Awakens.png"/>
-			</div>
-			<div class="container">
-				<p>Star Wars VII</p>
-				<a class="add-basket" onclick="addToBasket(this, 'Star Wars VII', 'fullFilm')" href="" title="Añadir al Carrito"><img src="images/carrito-plus.png" alt="carrito-plus.png"/></a>
-			</div>
-		</div>
-	</a>
-
-	<a href="fullFilm">
-		<div class="film">
-			<div class="film_image">
-				<div class="state available" title="Costo">Desde 15 €</div>
-				<img src="images/cartel-SWLosultimosjedi.jpg" alt="cartel-SWLosultimosjedi.jpg"/>
-			</div>
-			<div class="container">
-				<p>Star Wars VIII</p>
-				<a class="add-basket" onclick="addToBasket(this, 'Star Wars VIII', 'fullFilm')" href="" title="Añadir al Carrito"><img src="images/carrito-plus.png" alt="carrito-plus.png"/></a>
-			</div>
-		</div>
-	</a>
 {% endblock %}

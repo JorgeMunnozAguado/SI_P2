@@ -4,6 +4,8 @@
 
 {% block style %}last{% endblock %}
 
+{% block script %}<script src="scripts/cookies.js"></script>{% endblock %}
+
 {% block menu %}
 <a href="last">Últimas Películas</a>
 <a href="history">Historial de Compra</a>
@@ -24,7 +26,7 @@
 		</div>
 		<div class="container">
 			<p>{{ peli.titulo }}</p>
-			<a class="add-basket basket-get" href="" title="Quitar del Carrito"><img src="images/carrito-less.png" alt="carrito-less.png"/></a>
+			<a class="add-basket" onclick="addToBasket(this, '{{ peli.titulo|safe }}', 'fullFilm')" title="Quitar del Carrito"><img src="images/carrito-plus.png" alt="carrito-plus.png"/></a>
 		</div>
 	</div>
 </a>

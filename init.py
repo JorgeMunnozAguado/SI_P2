@@ -83,10 +83,10 @@ def index():
 def last():
     json_url = os.path.join(SITE_ROOT, "data", "catalogo.json")
     pelis=jsonAPelicula(json_url)
-    return checkSession("last.html",pelis)
+    return checkSessionPelis("last.html",pelis)
 
-@app.route("/fullFilm")
-def fullFilm():
+@app.route("/fullFilm/<name>")
+def fullFilm(name):
     return checkSession("fullFilm.html")
 
 @app.route("/basket")
@@ -146,7 +146,17 @@ def send_styles(path):
 def send_scripts(path):
     return send_from_directory('templates/scripts', path)
 
-def checkSession(url,peliculas):
+def checkSession(url):
+
+    if "SessionCookie" in request.cookies:
+        return render_template(url)
+    else:
+        return redirect("/")
+
+if __name__ == "__main__":
+    app.run()
+
+def checkSessionPelis(url,peliculas):
 
     if "SessionCookie" in request.cookies:
         return render_template(url,peliculas=peliculas)

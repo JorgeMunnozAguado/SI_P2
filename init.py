@@ -1,6 +1,7 @@
 from flask import Flask, render_template, send_from_directory, request, redirect, make_response
 import datetime
-import Pelicula
+from pelicula import Pelicula
+import utilficheros 
 
 app = Flask(__name__)
 
@@ -60,22 +61,22 @@ def registro():
 
 @app.route("/search", methods=['POST','GET'])
 def search():
-	pelis=[]
-	pelis_j=json.loads(open('data/catalogo.json').read())
+	pelis=jsonAPelicula('data/catalogo.json')
+	pelisFin=[]
     if request.method == 'GET':
 		search=request.args.get('search')
 		tipo=request.args.get('programa')
-		for iter_pelis in pelis_j["peliculas"]:
-			if iter_pelis['titulo'].lower() == search.lower():
-				pelis.append(Pelicula(iter_pelis['titulo'],iter_pelis['precio'],iter_pelis['poster'],iter_pelis['imgfondo'],iter_pelis['director'],iter_pelis['estreno'],iter_pelis['desc']))
-        return render_template("search.html",peliculas=pelis)
+		for iter_pelis in pelis:
+			if iter_pelis.titulo.lower() == search.lower():
+				pelisFin.append(Pelicula(iter_pelis.titulo,iter_pelis.precio,iter_pelis.poster,iter_pelis.imgfondo,iter_pelis.director,iter_pelis.estreno,iter_pelis.desc))
+        return render_template("search.html",peliculas=pelisFin)
     elif request.method == 'POST':
 		search=request.form['search']
 		tipo=request.form['programa']
-		for iter_pelis in pelis_j["peliculas"]:
-			if iter_pelis['titulo'].lower() == search.lower():
-				pelis.append(Pelicula(iter_pelis['titulo'],iter_pelis['precio'],iter_pelis['poster'],iter_pelis['imgfondo'],iter_pelis['director'],iter_pelis['estreno'],iter_pelis['desc']))
-		return render_template("search.html",peliculas=pelis)
+		for iter_pelis in pelis:
+			if iter_pelis.titulo.lower() == search.lower():
+				pelisFin.append(Pelicula(iter_pelis.titulo,iter_pelis.precio,iter_pelis.poster,iter_pelis.imgfondo,iter_pelis.director,iter_pelis.estreno,iter_pelis.desc))
+        return render_template("search.html",peliculas=pelisFin)
 	else:
         return redirect(url_for('last'))
 

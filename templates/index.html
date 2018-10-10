@@ -7,10 +7,11 @@
 		<link rel="shortcut icon" href="images/logotipo-aux.png" type="image/x-icon">
 		<link rel="stylesheet" type="text/css" href="styles/index.css">
 		<link rel="stylesheet" type="text/css" href="styles/general.css">
-        <script src="scripts/check.js"></script>
-        <script src="scripts/login.js"></script>
+		<script src="scripts/check.js"></script>
+		<script src="scripts/login.js"></script>
+		<script src="scripts/cookies.js"></script>
 	</head>
-	<body>
+	<body onload="setLogin()">
     
 		{% block log %}<div id="log"></div>{% endblock %}
     
@@ -27,6 +28,8 @@
 					<div class="input_mark">
 						<input class="input_text" type="password" placeholder="Contrase&ntilde;a" name="password" id="password">
 					</div>
+					<br>
+					<input type="checkbox" name="keep" id="keepSession">Recordarme</input>
 					<br>
 					<input class="button" type="submit" value="Entrar">
 				</form> 

@@ -1,6 +1,6 @@
 
 
-function addToBasket(id, name, href) {
+function addToBasket(id, name) {
     
     var text = getCookie("basket");
         
@@ -16,16 +16,16 @@ function addToBasket(id, name, href) {
         }
     }
 	
-    json_ret += '{"name":"' + name +'","href":"' + href + '"}]}';
+    json_ret += '{"name":"' + name +'"}]}';
     
     setCookie("basket", json_ret, "30");
     
     id.classList.add('basket-get');
-    id.onclick = function(){ removeFromBasket(this, name, href) }
+    id.onclick = function(){ removeFromBasket(this, name, false) }
     id.childNodes[0].src = 'images/carrito-less.png';
 }
 
-function removeFromBasket(id, name, href) {
+function removeFromBasket(id, name, aux) {
 
     var text = getCookie("basket");
 
@@ -40,10 +40,11 @@ function removeFromBasket(id, name, href) {
     for (i = 0; i < json.films.length; i++) {
 
         /*Comprobar ...*/
-        if ( boolean ) json_ret += ",";
         
-        if ((json.films[i].name != name) && (json.films[i].href != href)) {
-            
+        if (json.films[i].name != name) {
+       
+            if ( boolean ) json_ret += ",";
+
             json_ret += JSON.stringify(json.films[i]);
             boolean = true;
         }        
@@ -55,9 +56,24 @@ function removeFromBasket(id, name, href) {
     
     setCookie("basket", json_ret, "30");
 
-    id.classList.remove('basket-get');
-    id.onclick = function(){ addToBasket(this, name, href) }
-    id.childNodes[0].src = 'images/carrito-plus.png';
+    if (aux == false) {
+        
+        id.classList.remove('basket-get');
+        id.onclick = function(){ addToBasket(this, name) }
+        id.childNodes[0].src = 'images/carrito-plus.png';
+        
+    } else if (aux == true) {
+        
+        elem = document.getElementById(id);
+
+	c = elem.childNodes;
+
+	for (i = 0; i < c.length; i++) {
+            c[i].parentNode.removeChild(c[i])
+	}
+
+	elem.parentNode.removeChild(elem);
+    }
 }
 
 /* Function getCookie from WCS <https://www.w3schools.com/js/js_cookies.asp> */

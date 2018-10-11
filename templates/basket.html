@@ -4,6 +4,8 @@
 
 {% block style %}basket{% endblock %}
 
+{% block script %}<script src="scripts/cookies.js"></script>{% endblock %}
+
 {% block menu %}
 <a href="last">Últimas Películas</a>
 <a href="history">Historial de Compra</a>
@@ -17,7 +19,7 @@
 {% for film in films %}
 
 <a  href="fullFilm">
-	<div class="film">
+	<div class="film" id="{{loop.index}}film">
 		<div class="film_image">
 			<img src="{{ film.poster }}" alt="SW-8"/>
 		</div>
@@ -25,7 +27,7 @@
 			<p>{{ film.titulo }}</p>
 			<h1>Descripción: </h1><div>{{ film.desc }}</div>
 		</div>
-		<div class="delete available" title="Costo">Eliminar</div>
+		<a class="delete available" title="Costo" onclick="removeFromBasket('{{loop.index}}film', '{{ film.titulo }}', true)">Eliminar</a>
 		<p class="price">{{ film.precio }} €</p>
 	</div>
 </a>

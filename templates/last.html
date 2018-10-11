@@ -15,7 +15,7 @@
 {% block content %}
 	<h1>Últimas Películas</h1>
 {% for peli in peliculas %}
-	<a href="fullFilm">
+	<a href="fullFilm/{{ peli.link }}">
 		<div class="film">
 			<div class="film_image">
 				<div class="state available" title="Costo">Desde {{ peli.precio }} €</div>

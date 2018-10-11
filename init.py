@@ -10,6 +10,45 @@ SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 app = Flask(__name__)
 
 
+<<<<<<< HEAD
+def resultadoPeliculas(search,tipo,pelis):
+    pelis_cont={}
+    pelisFin=[]
+    mayor=0
+    list_search=search.lower().split(" ")
+    if tipo == "titulo":
+        for iter_pelis in pelis:
+            aux=iter_pelis.titulo.lower().split(" ")
+            cont=0
+            for elem in aux:
+                for elemS in list_search:
+                    if elem == elemS:
+                        cont=cont+1
+                        break
+            pelis_cont[iter_pelis]=cont
+            if cont > mayor:
+                mayor=cont
+    elif tipo == "director":
+        for iter_pelis in pelis:
+            aux=iter_pelis.director.lower().split(" ")
+            cont=0
+            for elem in aux:
+                for elemS in list_search:
+                    if elem == elemS:
+                        cont=cont+1
+                        break
+            pelis_cont[iter_pelis]=cont
+            if cont > mayor:
+                mayor=cont
+    for iter2 in pelis:
+        if pelis_cont[iter2] == mayor:
+            pelisFin.append(Pelicula(iter2.titulo,iter2.precio,iter2.poster,iter2.imgfondo,iter2.director,iter2.estreno,iter2.desc,iter2.link))
+    return pelisFin
+
+
+
+=======
+>>>>>>> a640a4fec714d5b082bd9c47397eb2031cfcb0f8
 @app.route("/", methods=['GET', 'POST'])
 def index():
 
@@ -52,7 +91,12 @@ def last():
 
 @app.route("/fullFilm/<name>")
 def fullFilm(name):
-    return checkSession("fullFilm.html")
+    json_url = os.path.join(SITE_ROOT, "data", "catalogo.json")
+    pelis=jsonAPelicula(json_url)
+    for peli in pelis:
+        if name == peli.link:
+            return checkSessionPelis("fullFilm.html",peli)
+    return redirect('/last')
 
 @app.route("/basket")
 def basket():
@@ -93,12 +137,12 @@ def search():
         search=request.args.get('search')
         tipo=request.args.get('programa')
 
-        return render_template("search.html",peliculas=resultadoPeliculas(search,tipo,pelis))
+        return checkSessionPelis("search.html",peliculas=resultadoPeliculas(search,tipo,pelis))
     elif request.method == 'POST':
         search=request.form['search']
         tipo=request.form['programa']
 
-        return render_template("search.html",peliculas=resultadoPeliculas(search,tipo,pelis))
+        return checkSessionPelis("search.html",peliculas=resultadoPeliculas(search,tipo,pelis))
     else:
         return redirect(url_for('last'))
 

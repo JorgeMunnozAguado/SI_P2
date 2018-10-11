@@ -1,6 +1,6 @@
 
 class Pelicula:
-	def __init__(self,titulo,precio,poster,imgfondo,director,estreno,desc):
+	def __init__(self,titulo,precio,poster,imgfondo,director,estreno,desc,link):
 		self.titulo=titulo
 		self.precio=precio
 		self.poster=poster
@@ -8,6 +8,7 @@ class Pelicula:
 		self.director=director
 		self.estreno=estreno
 		self.desc=desc
+		self.link=link
 		
 	def __getitem__ (self, name):
 		if name=='titulo':
@@ -24,3 +25,5 @@ class Pelicula:
 			return estreno
 		if name=='desc':
 			return desc
+		if name=='link':
+			return link

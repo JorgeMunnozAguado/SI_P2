@@ -141,9 +141,6 @@ def checkSession(url):
     else:
         return redirect("/")
 
-if __name__ == "__main__":
-    app.run()
-
 def checkSessionPelis(url,peliculas):
 
     if "SessionCookie" in request.cookies:

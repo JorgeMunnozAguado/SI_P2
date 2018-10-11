@@ -1,14 +1,16 @@
 from flask import Flask, render_template, send_from_directory, request, redirect, make_response
 import datetime
 from pelicula import Pelicula
-from utilficheros import jsonAPelicula
+from utilficheros import jsonAPelicula, resultadoPeliculas, searchFilms
 import os
+import json
 
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
 app = Flask(__name__)
 
 
+<<<<<<< HEAD
 def resultadoPeliculas(search,tipo,pelis):
     pelis_cont={}
     pelisFin=[]
@@ -45,6 +47,8 @@ def resultadoPeliculas(search,tipo,pelis):
 
 
 
+=======
+>>>>>>> a640a4fec714d5b082bd9c47397eb2031cfcb0f8
 @app.route("/", methods=['GET', 'POST'])
 def index():
 
@@ -96,7 +100,26 @@ def fullFilm(name):
 
 @app.route("/basket")
 def basket():
-    return checkSession("basket.html")
+
+    if "basket" in request.cookies and "SessionCookie" in request.cookies:
+
+        cookie = request.cookies.get('basket')
+        obj = json.loads(cookie)
+
+        buscar = obj["films"]
+
+        json_url = os.path.join(SITE_ROOT, "data", "catalogo.json")
+        pelis = jsonAPelicula(json_url)
+
+        ret = searchFilms(buscar, pelis)
+
+        return render_template("basket.html", films = ret[0], precioTotal = ret[1])
+
+    elif "SessionCookie" in request.cookies:
+        return checkSession("basket.html")
+        
+    else:
+        return redirect("/")
 
 @app.route("/history")
 def history():

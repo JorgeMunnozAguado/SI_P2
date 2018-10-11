@@ -59,7 +59,7 @@ def searchFilms(buscar, pelis):
             
                 precio += int(peli.precio)
                 count += 1
-                films.append(Pelicula(peli.titulo, peli.precio, peli.poster, peli.imgfondo, peli.director, peli.estreno, peli.desc))
+                films.append(Pelicula(peli.titulo, peli.precio, peli.poster, peli.imgfondo, peli.director, peli.estreno, peli.desc, peli.link))
                 
                 if count == len(buscar): return [films, precio]
 

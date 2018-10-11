@@ -12,6 +12,15 @@ function addToBasket(id, name) {
 
         for (i = 0; i < json.films.length; i++) {
         
+            if (json.films[i].name == name) {
+                
+                id.classList.add('basket-get');
+                id.onclick = function(){ removeFromBasket(this, name, false) }
+                id.childNodes[0].src = 'images/carrito-less.png';
+                
+                return;
+            }
+            
             json_ret += JSON.stringify(json.films[i]) + ",";
         }
     }

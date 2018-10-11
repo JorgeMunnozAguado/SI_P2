@@ -43,7 +43,7 @@ def resultadoPeliculas(search,tipo,pelis):
                 mayor=cont
     for iter2 in pelis:
         if pelis_cont[iter2] == mayor:
-            pelisFin.append(Pelicula(iter2.titulo,iter2.precio,iter2.poster,iter2.imgfondo,iter2.director,iter2.estreno,iter2.desc))
+            pelisFin.append(Pelicula(iter2.titulo,iter2.precio,iter2.poster,iter2.imgfondo,iter2.director,iter2.estreno,iter2.desc, iter2.link))
     return pelisFin
     
 def searchFilms(buscar, pelis):

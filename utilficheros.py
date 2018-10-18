@@ -65,4 +65,11 @@ def searchFilms(buscar, pelis):
 
     return [films, precio]
 
-
+def crearDatosUsuario(user_url,dict_res):
+	if os.path.exists(user_url) == False:
+		os.mkdir(user_url,0777)
+		with open('datos.json', 'w') as fp:
+			json.dump(dict_res, fp)
+		return True
+	else:
+		return False

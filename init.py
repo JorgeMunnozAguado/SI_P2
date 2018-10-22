@@ -123,7 +123,7 @@ def closeSession():
 
 
 @app.route('/images/<path:path>')
-def send_js(path):
+def send_images(path):
     return send_from_directory('static/images', path)
 
 @app.route('/styles/<path:path>')

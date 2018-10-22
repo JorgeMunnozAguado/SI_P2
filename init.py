@@ -87,7 +87,44 @@ def history():
 
 @app.route("/sing_up")
 def registro():
-    return render_template("registro.html")
+    if 'ccv' in request.form:
+        if request.method == 'GET':
+            nombre=request.args.get('nombre')
+    		dict_res['nombre']=nombre
+            dict_res['password']=request.args.get('password')
+            repite=request.args.get('repite')
+            dict_res['email']=request.args.get('email')
+            dict_res['tarjeta']=request.args.get('tarjeta')
+            dict_res['titular']=request.args.get('titular')
+            dict_res['ccv']=request.args.get('ccv')
+            dict_res['mes']=request.args.get('mes')
+            dict_res['anno']=request.args.get('anno')
+            user_url = os.path.join(SITE_ROOT, "users","info", str(nombre))
+            if crearDatosUsuario(user_url,dict_res) == True:
+                return 
+            else:
+                return render_template("registro.html")
+        elif request.method == 'POST':
+	        nombre=request.form['nombre']
+            dict_res['nombre']=nombre
+            dict_res['password']=request.form['password']
+            repite=request.form['repite']
+            dict_res['email']=request.form['email']
+            dict_res['tarjeta']=request.form['tarjeta']
+            dict_res['titular']=request.form['titular']
+            dict_res['ccv']=request.form['ccv']
+            dict_res['mes']=request.form['mes']
+            dict_res['anno']=request.form['anno']
+            user_url = os.path.join(SITE_ROOT, "users","info", str(nombre))
+            if crearDatosUsuario(user_url,dict_res) == True:
+                return 
+            else:
+                return render_template("registro.html")
+        else:
+            return render_template("registro.html")
+    else:
+        return render_template("registro.html")
+
 
 @app.route("/search", methods=['POST','GET'])
 def search():

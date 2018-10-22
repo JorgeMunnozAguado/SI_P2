@@ -4,18 +4,23 @@
 		<link rel="shortcut icon" href="images/logotipo-aux.png" type="image/x-icon">
 		<link rel="stylesheet" type="text/css" href="styles/registro.css">
 		<link rel="stylesheet" type="text/css" href="styles/general.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="scripts/registro.js"></script>
 		<title>Nitflix: Registro</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	</head>
 	<body>
 		<div id="fondoR">
 			<h1 id="tit-form">Formulario de registro</h1><br>
-			<form action="last.html">
+			<form action="sign.html" method="POST">
 				<div class="datos">
 					Datos de usuario:<br>
 						<input required class="input_text" type="text" placeholder="Nombre de usuario" name="nombre">
 					<br>
 						<input required class="input_text" type="password" placeholder="Contrase&ntilde;a" name="password">
+					<br>
+						<div id="medidor">
+						</div>
 					<br>
 						<input required class="input_text" type="password" placeholder="Repetir contrase&ntilde;a" name="repite">
 					<br>
@@ -32,7 +37,7 @@
 					Fecha de caducidad de la tarjeta:
 					<div class="fecha">
 						<br>Mes:<br>
-						<select required name="Mes" class="input_text especial">
+						<select required name="mes" class="input_text especial">
 							<option value="">-</option>
 							<option value="1">1</option>
 							<option value="2">2</option>
@@ -50,7 +55,7 @@
 					</div>
 					<div class="fecha">
 						A&ntilde;o:<br>
-						<select required name="A&ntilde;o" class="input_text especial">  
+						<select required name="anno" class="input_text especial">  
 							<option value="">-</option>
 							<option value="2018">2018</option>
 							<option value="2019">2019</option>
@@ -65,65 +70,65 @@
 					<div class="generos">
 						<p>
 							Generos de inter&eacute;s:<br>
-							<input name="days" value="accion" type="checkbox">
+							<input name="accion" value="accion" type="checkbox">
 							Acci&oacute;n
 							<br>
-							<input name="days" value="animacion" type="checkbox">
+							<input name="animacion" value="animacion" type="checkbox">
 							Animaci&oacute;n
 							<br>
-							<input name="days" value="aventura" type="checkbox">
+							<input name="aventura" value="aventura" type="checkbox">
 							Aventura
 							<br>
-							<input name="days" value="cienciafic" type="checkbox">
+							<input name="cienciafic" value="cienciafic" type="checkbox">
 							Ciencia-ficci&oacute;n
 							<br>
-							<input name="days" value="comedia" type="checkbox">
+							<input name="comedia" value="comedia" type="checkbox">
 							Comedia
 						</p>
 					</div>
 					<div class="generos">
 						<p>
-							<input name="days" value="crimen" type="checkbox">
+							<input name="crimen" value="crimen" type="checkbox">
 							Crimen
 							<br>
-							<input name="days" value="documental" type="checkbox">
+							<input name="documental" value="documental" type="checkbox">
 							Documental
 							<br>
-							<input name="days" value="drama" type="checkbox">
+							<input name="drama" value="drama" type="checkbox">
 							Drama
 							<br>
-							<input name="days" value="familia" type="checkbox">
+							<input name="familia" value="familia" type="checkbox">
 							Familia
 							<br>
-							<input name="days" value="fantasia" type="checkbox">
+							<input name="fantasia" value="fantasia" type="checkbox">
 							Fantas&iacute;a
 						</p>
 					</div>
 					<div class="generos">
 						<p>
-							<input name="days" value="guerra" type="checkbox">
+							<input name="guerra" value="guerra" type="checkbox">
 							Guerra
 							<br>
-							<input name="days" value="historia" type="checkbox">
+							<input name="historia" value="historia" type="checkbox">
 							Historia
 							<br>
-							<input name="days" value="ninnos" type="checkbox">
+							<input name="ninnos" value="ninnos" type="checkbox">
 							Ni&ntilde;os
 							<br>
-							<input name="days" value="misterio" type="checkbox">
+							<input name="misterio" value="misterio" type="checkbox">
 							Misterio
 							<br>
-							<input name="days" value="romance" type="checkbox">
+							<input name="romance" value="romance" type="checkbox">
 							Romance
 							<br>
 						</p>
 					</div>
 					<div class="generos">
 						<p>
-							<input name="days" value="suspense" type="checkbox">
+							<input name="suspense" value="suspense" type="checkbox">
 							Suspense
 							<br>
-							<input name="days" value="western" type="checkbox">
+							<input name="western" value="western" type="checkbox">
 							Western
 							<br>
 						</p>

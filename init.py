@@ -2,6 +2,7 @@ from flask import Flask, render_template, send_from_directory, request, redirect
 import datetime
 from pelicula import Pelicula
 from utilficheros import jsonAPelicula, resultadoPeliculas, searchFilms
+from users import Users
 import os
 import json
 
@@ -28,7 +29,7 @@ def index():
             username = request.form['username']
             password = request.form['password']
 
-            if username == "admin" and password == "admin":
+            if Users.checkUser(username, password): #username == "admin" and password == "admin":
 
                 expire_date = datetime.datetime.now()
                 expire_date = expire_date + datetime.timedelta(hours = 1)
@@ -90,7 +91,7 @@ def registro():
     if 'ccv' in request.form:
         if request.method == 'GET':
             nombre=request.args.get('nombre')
-    		dict_res['nombre']=nombre
+            dict_res['nombre']=nombre
             dict_res['password']=request.args.get('password')
             repite=request.args.get('repite')
             dict_res['email']=request.args.get('email')
@@ -105,7 +106,7 @@ def registro():
             else:
                 return render_template("registro.html")
         elif request.method == 'POST':
-	        nombre=request.form['nombre']
+            nombre=request.form['nombre']
             dict_res['nombre']=nombre
             dict_res['password']=request.form['password']
             repite=request.form['repite']

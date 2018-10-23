@@ -14,6 +14,9 @@
 
 {% block content %}
 <h1>Carrito de Compra</h1>
+
+{% if films %}
+
 <p id="total-price">Precio Total: <b>{{ precioTotal }} €</b></p>
 
 {% for film in films %}
@@ -34,5 +37,10 @@
 {% endfor %}
 
 <a class="buy bought">Tramitar Compra</a>
+
+{% else %}
+<p id="nothing">No hay nada que mostrar</p>
+{% endif %}
+
 {% endblock %}
 

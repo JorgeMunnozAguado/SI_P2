@@ -85,11 +85,10 @@ def fullFilm(name):
 @app.route("/basket")
 def basket():
 
-    if "basket" in request.cookies and "SessionCookie" in request.cookies:
+    if "basket" in session and "SessionCookie" in request.cookies:
 
-        cookie = request.cookies.get('basket')
-        obj = json.loads(cookie)
-
+        obj = json.loads(session['basket'])
+            
         buscar = obj["films"]
 
         json_url = os.path.join(SITE_ROOT, "data", "catalogo.json")
@@ -183,8 +182,35 @@ def closeSession():
         return redirect("/")
 
 
-#@app.route("/ajax_url")
-#def ajax():
+@app.route("/ajax_url", methods=['POST'])
+def ajax():
+
+    # PODRIA DAR ALGUN PROBLEMA DE PERDIDA DE DATOS (fork en so)
+    # QUE SE REALICE UNA PETICION DEL MISMO USUARIO ANTES DE ACABAR DE EJECUTAR LA FUNCION ANTERIOR?
+    
+    if "basket" in session: 
+        parse = json.loads(session['basket'])
+        #print >>sys.stderr, 'READ: ' + str(parse)
+    
+    else: parse = {'films':[]}
+    
+    name = request.form['name']
+    type = request.form['type']
+    
+    if not ({'name':name} in parse['films']):
+
+        if type == "add":
+            parse['films'].append({'name':name})
+        
+    else:
+        if type == "remove":
+            parse['films'].remove({'name':name})
+    
+    #print >>sys.stderr, 'WRITE: ' + str(parse)
+    
+    session['basket'] = json.dumps(parse)
+    
+    return "OK"
     
 
 @app.route('/images/<path:path>')

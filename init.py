@@ -1,54 +1,77 @@
-from flask import Flask, render_template, send_from_directory, request, redirect, make_response
+from flask import Flask, session, render_template, send_from_directory, request, redirect, make_response
 import datetime
 from pelicula import Pelicula
 from utilficheros import jsonAPelicula, resultadoPeliculas, searchFilms
 from users import Users
 import os
+import sys
 import json
 
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
 app = Flask(__name__)
 
+
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/' #EJEMPLO
+
+try:
+    from flask_session import Session
+    
+    this_dir = os.path.dirname(os.path.abspath(__file__))
+    SESSION_TYPE = 'filesystem'
+    SESSION_FILE_DIR = this_dir + '/sessions'
+    SESSION_COOKIE_NAME = 'SessionCookie'
+    app.config.from_object(__name__)
+    Session(app)
+    
+    print >>sys.stderr, "Usando sesiones de Flask-Session en fichero del servidor"
+    
+except ImportError as e:
+    print >>sys.stderr, "Flask-Session no disponible, usando sesiones de Flask en cookie"
+
+
+
+
+
 @app.route("/", methods=['GET', 'POST'])
 def index():
 
     if "SessionCookie" in request.cookies:
 
-        # Comprobar sesion
-        if request.cookies.get('SessionCookie') == "admin":
-            return redirect("/last")
+        if 'username' in session and 'password' in session:
+
+            if Users.checkUser(session['username'], session['password']):
+                return redirect("/last")
+
+    if request.method == 'POST':
+
+        username = request.form['username']
+        password = request.form['password']
+
+        if Users.checkUser(username, password): #username == "admin" and password == "admin":
+
+            expire_date = datetime.datetime.now()
+            expire_date = expire_date + datetime.timedelta(hours = 1)
+
+            resp = make_response(redirect("/last"))
+            #resp.set_cookie('SessionCookie', username, expires = expire_date)
+            session['username'] = username
+            session['password'] = password
+            
+            return resp
 
         else:
-            return "SESION"
+            return render_template("index-fail.html")
 
     else:
-
-        if request.method == 'POST':
-
-            username = request.form['username']
-            password = request.form['password']
-
-            if Users.checkUser(username, password): #username == "admin" and password == "admin":
-
-                expire_date = datetime.datetime.now()
-                expire_date = expire_date + datetime.timedelta(hours = 1)
-
-                resp = make_response(redirect("/last"))
-                resp.set_cookie('SessionCookie', username, expires = expire_date)
-                return resp
-
-            else:
-                return render_template("index-fail.html")
-
-        else:
-            return render_template("index.html")
+        return render_template("index.html")
+            
 
 @app.route("/last")
 def last():
     json_url = os.path.join(SITE_ROOT, "data", "catalogo.json")
     pelis=jsonAPelicula(json_url)
-    return checkSessionPelis("last.html",pelis)
+    return checkSessionPelis("last.html", pelis)
 
 @app.route("/fullFilm/<name>")
 def fullFilm(name):
@@ -152,13 +175,17 @@ def closeSession():
         # Creo que no hay que hacer mas comprobaciones
 
         resp = make_response(redirect("/"))
-        resp.set_cookie('SessionCookie', '', expires = 0)
+        #resp.set_cookie('SessionCookie', '', expires = 0)
+        session.clear()
         return resp
 
     else:
         return redirect("/")
 
 
+#@app.route("/ajax_url")
+#def ajax():
+    
 
 @app.route('/images/<path:path>')
 def send_images(path):
@@ -175,16 +202,23 @@ def send_scripts(path):
 def checkSession(url):
 
     if "SessionCookie" in request.cookies:
-        return render_template(url)
-    else:
-        return redirect("/")
+        if 'username' in session and 'password' in session:
 
-def checkSessionPelis(url,peliculas):
+            if Users.checkUser(session['username'], session['password']):
+                return render_template(url)
+                
+    return redirect("/")
+
+def checkSessionPelis(url, peliculas):
 
     if "SessionCookie" in request.cookies:
-        return render_template(url,peliculas=peliculas)
-    else:
-        return redirect("/")
+    
+        if 'username' in session and 'password' in session:
+
+            if Users.checkUser(session['username'], session['password']):
+                return render_template(url,peliculas = peliculas)
+                
+    return redirect("/")
 
 if __name__ == "__main__":
     app.run()

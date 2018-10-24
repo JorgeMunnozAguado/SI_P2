@@ -48,6 +48,8 @@
     overflow: auto;
     padding: 20px;
     border-bottom: 1px solid #afafaf;
+    position: relative;
+    height: 76px;
 }
 
 #user_info img {
@@ -58,9 +60,10 @@
     border-radius: 50%;
 }
 
-#user_info > a {
-    float: left;
-    margin-left: 13px;
+#user_info a {
+    left: 123px;
+    bottom: 33px;
+    position: absolute;
 }
 
 #user_info h1 {

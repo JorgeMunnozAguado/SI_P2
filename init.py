@@ -80,6 +80,7 @@ def fullFilm(name):
     for peli in pelis:
         if name == peli.link:
             return checkSessionPelis("fullFilm.html",peli)
+            
     return redirect('/last')
 
 @app.route("/basket")
@@ -96,7 +97,7 @@ def basket():
 
         ret = searchFilms(buscar, pelis)
 
-        return render_template("basket.html", films = ret[0], precioTotal = ret[1])
+        return render_template("basket.html", films = ret[0], precioTotal = ret[1], user=session['username'])
 
     elif "SessionCookie" in request.cookies:
         return checkSession("basket.html")
@@ -231,7 +232,7 @@ def checkSession(url):
         if 'username' in session and 'password' in session:
 
             if Users.checkUser(session['username'], session['password']):
-                return render_template(url)
+                return render_template(url, user=session['username'])
                 
     return redirect("/")
 
@@ -242,7 +243,7 @@ def checkSessionPelis(url, peliculas):
         if 'username' in session and 'password' in session:
 
             if Users.checkUser(session['username'], session['password']):
-                return render_template(url,peliculas = peliculas)
+                return render_template(url, peliculas=peliculas, user=session['username'])
                 
     return redirect("/")
 

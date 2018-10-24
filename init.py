@@ -70,7 +70,7 @@ def index():
 @app.route("/last")
 def last():
     json_url = os.path.join(SITE_ROOT, "data", "catalogo.json")
-    pelis=jsonAPelicula(json_url)
+    pelis = jsonAPelicula(json_url)
     return checkSessionPelis("last.html", pelis)
 
 @app.route("/fullFilm/<name>")
@@ -79,7 +79,7 @@ def fullFilm(name):
     pelis=jsonAPelicula(json_url)
     for peli in pelis:
         if name == peli.link:
-            return checkSessionPelis("fullFilm.html",peli)
+            return checkSessionPelis("fullFilm.html", peli)
             
     return redirect('/last')
 
@@ -104,6 +104,18 @@ def basket():
         
     else:
         return redirect("/")
+        
+@app.route("/pay", methods=['POST','GET'])
+def pay():
+
+    if "SessionCookie" in request.cookies:
+    
+        if 'username' in session and 'password' in session:
+
+            if Users.checkUser(session['username'], session['password']):
+            
+        else:
+            return render_template("index.html")
 
 @app.route("/history")
 def history():

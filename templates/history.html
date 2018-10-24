@@ -18,26 +18,19 @@
 	<tr>
 		<th class="date">Fecha de Compra</th> <th class="name">Nombre de la Película</th> <th class="price">Precio</th>
 	</tr>
+	
+	{% if peliculas %}
+	{% for film in peliculas %}
 	<tr>
-		<td class="date">21/09/2018</td> <td>Star Wars VII</td> <td class="price">15 €</td>
+		<td class="date">{{ film.date }}</td> <td>{{ film.name }}</td> <td class="price">{{ film.price }}</td>
 	</tr>
-	<tr>
-		<td class="date">21/09/2018</td> <td>Star Wars VII</td> <td class="price">15 €</td>
-	</tr>
-	<tr>
-		<td class="date">21/09/2018</td> <td>Star Wars VII</td> <td class="price">15 €</td>
-	</tr>
-	<tr>
-		<td class="date">21/09/2018</td> <td>Star Wars VII</td> <td class="price">15 €</td>
-	</tr>
-	<tr>
-		<td class="date">21/09/2018</td> <td>Star Wars VII</td> <td class="price">15 €</td>
-	</tr>
-	<tr>
-		<td class="date">21/09/2018</td> <td>Star Wars VII</td> <td class="price">15 €</td>
-	</tr>
-
+	{% endfor %}
 </table>
+	{% else %}
+</table>
+	<p id="nothing">No hay nada que mostrar</p>
+	{% endif %}
+
 {% endblock %}
 
 

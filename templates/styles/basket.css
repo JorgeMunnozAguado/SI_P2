@@ -51,10 +51,12 @@
     border-radius: 3px;
     color: #fff;
     border: 1px solid #721818;
+    cursor: pointer;
 }
 
 .delete:hover {
     background: #e35b5b;
+    color: #fff;
 }
 
 .buy {
@@ -98,9 +100,4 @@
 
 .film_image img {
     width: 120px;
-}
-
-#nothing {
-    text-align: center;
-    margin-top: 150px;
 }

@@ -106,7 +106,7 @@ def basket():
 
 @app.route("/history")
 def history():
-    return checkSession("history.html")
+    return checkSessionPelis("history.html", Users.listUserFilms(session['username']))
 
 @app.route("/sing_up")
 def registro():

@@ -33,7 +33,10 @@ function removeFromBasket(id, name, aux) {
                 
             } else if (aux == true) {
                 
-                elem = document.getElementById(id);
+                var elem = document.getElementById(id);
+                
+                var price = document.getElementById("real-price");
+                price.innerHTML = (parseInt(price.innerText) - parseInt(elem.getElementsByClassName("price")[0].innerText)) + " €";
 
                 	c = elem.childNodes;
 

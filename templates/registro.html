@@ -12,23 +12,27 @@
 	<body>
 		<div id="fondoR">
 			<h1 id="tit-form">Formulario de registro</h1><br>
-			<form action="/sign_up.html" method="POST" onsubmit="return checkForm()">
+			<form action="/sing_up" method="POST">
 				<div class="datos">
 					Datos de usuario:<br>
-						<input required class="input_text" type="text" placeholder="Nombre de usuario" name="nombre" onkeypress="document.miFormulario.action='checkUser()';document.miFormulario.submit();">
+						<input required class="input_text" type="text" placeholder="Nombre de usuario" name="nombre" id="nombre" onkeypress="checkUser();">
 					<br>
-						<input required class="input_text" type="password" placeholder="Contrase&ntilde;a" name="password">
+					<div id="usuarioRes">
+					</div>
+						<input required class="input_text" type="password" placeholder="Contrase&ntilde;a" name="password" id="nombre">
 					<br>
 						<div id="medidor">
 						</div>
 					<br>
-						<input required class="input_text" type="password" placeholder="Repetir contrase&ntilde;a" name="repite">
+						<input required class="input_text" type="password" placeholder="Repetir contrase&ntilde;a" name="repite" id="repite" onkeypress="checkPassword();">
+						<div id="contraIgual">
+						</div>
 					<br>
-						<input required class="input_text" type="text" placeholder="E-mail" name="email">
+						<input required class="input_text" type="text" placeholder="E-mail" name="email" id="email">
 				</div>
 				<div class="datos" id="tarjeta">
 					Datos de la tarjeta:<br>
-					<input required class="input_text" type="text" placeholder="Tarjeta de credito" name="tarjeta" maxlength="16">
+					<input required class="input_text" type="text" placeholder="Tarjeta de credito" name="tarjeta" id="tarjeta" maxlength="16">
 					
 					<input required class="input_text" type="text" placeholder="Titular de la tarjeta" name="titular">
 					
@@ -135,7 +139,7 @@
 					</div>
 				</div>
 				<br>
-				<input class="button" id="botoncillo1" type="submit" value="Enviar">
+				<input class="button" id="botoncillo1" type="button" value="Enviar" onclick="checkForm()">
 				<input class="button" id="botoncillo2" type="reset" value="Borrar">
 			</form>
 			{% if msg %}

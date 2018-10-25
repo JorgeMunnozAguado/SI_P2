@@ -16,21 +16,24 @@
 {% block content %}
 			
 <h1>Resultados de la b&uacute;squeda</h1>
-
-{% for peli in peliculas %}
-<a href="fullFilm/{{ peli.link }}">
-	<div class="film">
-		<div class="film_image">
-			<div class="state available" title="Costo">Desde {{ peli.precio }} €</div>
-			<img src="{{ peli.poster }}" alt="{{ peli.poster }}"/>
+{% if peliculas %}
+	{% for peli in peliculas %}
+	<a href="fullFilm/{{ peli.link }}">
+		<div class="film">
+			<div class="film_image">
+				<div class="state available" title="Costo">Desde {{ peli.precio }} €</div>
+				<img src="{{ peli.poster }}" alt="{{ peli.poster }}"/>
+			</div>
+			<div class="container">
+				<p>{{ peli.titulo }}</p>
+				<a class="add-basket" onclick="addToBasket(this, '{{ peli.titulo|safe }}')" title="Quitar del Carrito"><img src="images/carrito-plus.png" alt="carrito-plus.png"/></a>
+			</div>
 		</div>
-		<div class="container">
-			<p>{{ peli.titulo }}</p>
-			<a class="add-basket" onclick="addToBasket(this, '{{ peli.titulo|safe }}')" title="Quitar del Carrito"><img src="images/carrito-plus.png" alt="carrito-plus.png"/></a>
-		</div>
-	</div>
-</a>
-{% endfor %}
+	</a>
+	{% endfor %}
+{% else %}
+	<p id="noPelis">No existen pel&itilde;culas con ese t&itilde;tulo</p>
+{% endif %}
 
 {% endblock %}
 

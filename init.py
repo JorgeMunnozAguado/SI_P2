@@ -123,47 +123,58 @@ def history():
 
 @app.route("/sing_up")
 def registro():
-    if 'ccv' in request.form:
+    if 'tarjeta' in request.form:
         if request.method == 'GET':
-            nombre=request.args.get('nombre')
+            nombre=request.args.get('nombre').lower()
+            password=request.args.get('password')
             if getUserFromDB(nombre) != None:
                 return render_template("registro.html",msg="Nombre de usuario ya registrado")
-            dict_res['nombre']=nombre
-            dict_res['password']=request.args.get('password')
-            repite=request.args.get('repite')
-            dict_res['email']=request.args.get('email')
-            dict_res['tarjeta']=request.args.get('tarjeta')
-            dict_res['titular']=request.args.get('titular')
-            dict_res['ccv']=request.args.get('ccv')
-            dict_res['mes']=request.args.get('mes')
-            dict_res['anno']=request.args.get('anno')
-            user_url = os.path.join(SITE_ROOT, "users","info", str(nombre))
-            if createNewUser(request.args.get('nombre'), request.args.get('password'),request.args.get('tarjeta'), 0,request.args.get('email')) == None:
+            if createNewUser(request.args.get('nombre').lower(), request.args.get('password'),request.args.get('tarjeta'), 0,request.args.get('email')) == None:
                 return render_template("registro.html",msg="Error al crear el usuario")
             else:
-                return 
+                if Users.checkUser(nombre,password):
+                    expire_date = datetime.datetime.now()
+                    expire_date = expire_date + datetime.timedelta(hours = 1)
+
+                    resp = make_response(redirect("/last"))
+                    session['username'] = username
+                    session['password'] = password
+            
+                    return resp
+                else:
+                     return render_template("index.html")
         elif request.method == 'POST':
-            nombre=request.form['nombre']
-            dict_res['nombre']=nombre
+            nombre=request.form['nombre'].lower()
             if getUserFromDB(nombre) != None:
                 return render_template("registro.html",msg="Nombre de usuario ya registrado")
-            dict_res['password']=request.form['password']
-            repite=request.form['repite']
-            dict_res['email']=request.form['email']
-            dict_res['tarjeta']=request.form['tarjeta']
-            dict_res['titular']=request.form['titular']
-            dict_res['ccv']=request.form['ccv']
-            dict_res['mes']=request.form['mes']
-            dict_res['anno']=request.form['anno']
-            user_url = os.path.join(SITE_ROOT, "users","info", str(nombre))
-            if createNewUser(request.form['nombre'], request.form['password'], request.form['tarjeta'], 0, request.form['email']) == None:
+            password=request.form['password']
+            if createNewUser(request.form['nombre'].lower(), request.form['password'], request.form['tarjeta'], 0, request.form['email']) == None:
                 return render_template("registro.html",msg="Error al crear el usuario")
             else:
-                return 
+                if Users.checkUser(nombre,password):
+                    expire_date = datetime.datetime.now()
+                    expire_date = expire_date + datetime.timedelta(hours = 1)
+
+                    resp = make_response(redirect("/last"))
+                    session['username'] = username
+                    session['password'] = password
+            
+                    return resp
+                else:
+                     return render_template("index.html")
         else:
             return render_template("registro.html")
     else:
         return render_template("registro.html")
+
+@app.route("/compr_usuario/<name>")
+def comprobar_usuario(name):
+    if getUserFromDB(name) == None:
+        return "<p class='bien'>El nombre de usuario esta disponible<p>"
+    else
+        return "<p class='mal'>El nombre de usuario NO esta disponible<p>"
+
+
 
 
 @app.route("/search", methods=['POST','GET'])

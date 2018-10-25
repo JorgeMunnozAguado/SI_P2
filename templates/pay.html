@@ -2,8 +2,8 @@
 <html lang="es">
 	<head>
 		<link rel="shortcut icon" href="images/logotipo-aux.png" type="image/x-icon">
-		<link rel="stylesheet" type="text/css" href="styles/pay.css">
-		<link rel="stylesheet" type="text/css" href="styles/general.css">
+		<link rel="stylesheet" type="text/css" href="/styles/pay.css">
+		<link rel="stylesheet" type="text/css" href="/styles/general.css">
 		<title>Nitflix: Tramitar compra</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	</head>
@@ -12,17 +12,17 @@
         
             <h1>Tramitar Compra</h1>
             <div id="user">
-                <img src="images/imagen.jpg" alt="Foto perfil" id="user_logo"/>
-    			    <h1>Jorge Muñoz Aguado</h1>
+                <img src="/images/imagen.jpg" alt="Foto perfil" id="user_logo"/>
+    			<h1>{{ user.name }}</h1>
             </div>
             <hr>
-            <p><strong>Fecha de pago:</strong> <span>24/10/2018</span></p>
-            <p><strong>Tarjeta:</strong> <span>1234567890</span></p>
+            <p><strong>Fecha de pago:</strong> <span>{{ date }}</span></p>
+            <p><strong>Tarjeta:</strong> <span>{{ user.ccard }}</span></p>
             <hr>
-			<p><strong>Saldo:</strong> <span>90 €</span></p>
-            <p><strong>Precio Total:</strong> <span>23 €</span></p>
+			<p><strong>Saldo:</strong> <span>{{ user.balance }} €</span></p>
+            <p><strong>Precio Total:</strong> <span>{{ price }} €</span></p>
             <a class="submit">Pagar</a>
-            <a class="submit cancel">Cancelar</a>
+            <a href="/basket" class="submit cancel">Cancelar</a>
             
         </div>
 	</body>

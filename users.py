@@ -70,7 +70,7 @@ class Users:
         
         if not ({'name':filmName} in parse['films']): # MEJORAR--------------------------------------------------- NO SE SI FUNCIONAA
 
-            parse['films'].append({'name':filmName, 'date':time.strftime("%x"), 'price':price})
+            parse['films'].append({'name':filmName, 'date':time.strftime("%d/%m/%y"), 'price':price})
         
         file = open(FOLDER_PATH + userName + "/films.json", "w")
         

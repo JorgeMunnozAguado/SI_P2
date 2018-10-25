@@ -59,6 +59,7 @@ span {
     margin-top: 15px;
     margin-right: 15px;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .submit:hover {

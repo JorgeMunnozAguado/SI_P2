@@ -21,7 +21,7 @@
 
 {% for film in films %}
 
-<a  href="fullFilm">
+<a  href="fullFilm/{{ film.link }}">
 	<div class="film" id="{{loop.index}}film">
 		<div class="film_image">
 			<img src="{{ film.poster }}" alt="SW-8"/>
@@ -36,7 +36,7 @@
 </a>
 {% endfor %}
 
-<a class="buy bought">Tramitar Compra</a>
+<a href="/pay" class="buy bought">Tramitar Compra</a>
 
 {% else %}
 <p id="nothing">No hay nada que mostrar</p>

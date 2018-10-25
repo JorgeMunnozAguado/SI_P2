@@ -120,7 +120,14 @@ def pay():
             
                 user = Users.getUserFromDB(session['username'])
                 
-                return render_template("pay.html", user=user, date=time.strftime("%d/%m/%y"))
+                
+                obj = json.loads(session['basket']) ## HACER MAS BONITO
+                buscar = obj["films"]
+                json_url = os.path.join(SITE_ROOT, "data", "catalogo.json")
+                pelis = jsonAPelicula(json_url)
+                ret = searchFilms(buscar, pelis)
+                
+                return render_template("pay.html", user=user, date=time.strftime("%d/%m/%y"), price=ret[1])
             
         
             return render_template("pay.html")
@@ -138,8 +145,6 @@ def registro():
     if 'ccv' in request.form:
         if request.method == 'GET':
             nombre=request.args.get('nombre')
-            if getUserFromDB(nombre) != None:
-                return render_template("registro.html",msg="Nombre de usuario ya registrado")
             dict_res['nombre']=nombre
             dict_res['password']=request.args.get('password')
             repite=request.args.get('repite')
@@ -150,15 +155,13 @@ def registro():
             dict_res['mes']=request.args.get('mes')
             dict_res['anno']=request.args.get('anno')
             user_url = os.path.join(SITE_ROOT, "users","info", str(nombre))
-            if createNewUser(request.args.get('nombre'), request.args.get('password'),request.args.get('tarjeta'), 0,request.args.get('email')) == None:
-                return render_template("registro.html",msg="Error al crear el usuario")
-            else:
+            if crearDatosUsuario(user_url,dict_res) == True:
                 return 
+            else:
+                return render_template("registro.html")
         elif request.method == 'POST':
             nombre=request.form['nombre']
             dict_res['nombre']=nombre
-            if getUserFromDB(nombre) != None:
-                return render_template("registro.html",msg="Nombre de usuario ya registrado")
             dict_res['password']=request.form['password']
             repite=request.form['repite']
             dict_res['email']=request.form['email']
@@ -168,10 +171,10 @@ def registro():
             dict_res['mes']=request.form['mes']
             dict_res['anno']=request.form['anno']
             user_url = os.path.join(SITE_ROOT, "users","info", str(nombre))
-            if createNewUser(request.form['nombre'], request.form['password'], request.form['tarjeta'], 0, request.form['email']) == None:
-                return render_template("registro.html",msg="Error al crear el usuario")
-            else:
+            if crearDatosUsuario(user_url,dict_res) == True:
                 return 
+            else:
+                return render_template("registro.html")
         else:
             return render_template("registro.html")
     else:

@@ -64,3 +64,15 @@ input{
 #tit-form {
 	text-align: center;
 }
+
+#error {
+	color:white;
+	background:red;
+	text-align:center;
+	margin: 1px 30px 10px 30px;
+	border-radius: 9px;
+	border-style:solid;
+	border-width: 1px;
+	border-color:black;
+	padding: 10px 10px;
+}

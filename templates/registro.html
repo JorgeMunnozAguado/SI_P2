@@ -12,10 +12,10 @@
 	<body>
 		<div id="fondoR">
 			<h1 id="tit-form">Formulario de registro</h1><br>
-			<form action="sign.html" method="POST">
+			<form action="/sign_up.html" method="POST" onsubmit="return checkForm()">
 				<div class="datos">
 					Datos de usuario:<br>
-						<input required class="input_text" type="text" placeholder="Nombre de usuario" name="nombre">
+						<input required class="input_text" type="text" placeholder="Nombre de usuario" name="nombre" onkeypress="document.miFormulario.action='checkUser()';document.miFormulario.submit();">
 					<br>
 						<input required class="input_text" type="password" placeholder="Contrase&ntilde;a" name="password">
 					<br>
@@ -138,6 +138,12 @@
 				<input class="button" id="botoncillo1" type="submit" value="Enviar">
 				<input class="button" id="botoncillo2" type="reset" value="Borrar">
 			</form>
+			{% if msg %}
+			<br><br>
+				<div id="error">
+					<p>{{msg}}</p>
+				</div>
+			{% endif %}
 		</div> 
 		<div class="footer"><p>Alberto Moreno Brasero y Jorge Mu&ntilde;oz Aguado</p></div>
 	</body>

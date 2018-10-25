@@ -15,7 +15,7 @@
 			<form action="/sing_up" method="POST">
 				<div class="datos">
 					Datos de usuario:<br>
-						<input required class="input_text" type="text" placeholder="Nombre de usuario" name="nombre" id="nombre" onkeypress="checkUser();">
+						<input required class="input_text" type="text" placeholder="Nombre de usuario" name="nombre" id="nombre" onkeyup="checkUser();">
 					<br>
 					<div id="usuarioRes">
 					</div>
@@ -24,7 +24,7 @@
 						<div id="medidor">
 						</div>
 					<br>
-						<input required class="input_text" type="password" placeholder="Repetir contrase&ntilde;a" name="repite" id="repite" onkeypress="checkPassword();">
+						<input required class="input_text" type="password" placeholder="Repetir contrase&ntilde;a" name="repite" id="repite" onkeyup="checkPassword();">
 						<div id="contraIgual">
 						</div>
 					<br>

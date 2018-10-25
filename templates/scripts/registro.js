@@ -14,20 +14,20 @@ function checkForm(){
 	
 	if(contrasenna != repetir){
 		fallo=1;
-		document.getElementById('').innerHTML=;
-		document.getElementById('').style.display='block';
+		document.getElementById('usuarioRes').innerHTML="<p></p>";
+		document.getElementById('usuarioRes').style.display='block';
 	}
 	
 	if(tarjeta.length != 12){
 		fallo=1;
-		document.getElementById('').innerHTML=;
-		document.getElementById('').style.display='block';
+		document.getElementById('usuarioRes').innerHTML="<p></p>";
+		document.getElementById('usuarioRes').style.display='block';
 	}
 	
 	if(email.includes('@') == false){
 		fallo=1;
-		document.getElementById('').innerHTML=;
-		document.getElementById('').style.display='block';
+		document.getElementById('usuarioRes').innerHTML="<p></p>";
+		document.getElementById('usuarioRes').style.display='block';
 	}
 	
 	if(fallo==0){
@@ -52,10 +52,10 @@ function checkPassword(){
 	var contrasenna = document.getElementById('password')
 	var repetir = document.getElementById('repite')
 	
-	if(contrasenna.value == repetir.value){
+	if( contrasenna.value != null && repetir.value != null && contrasenna.value == repetir.value){
 		document.getElementById("contraIgual").innerHTML = "<p class='bien'>La contrase&ntilde;a es la misma</p>"
 		document.getElementById("contraIgual").style.display = 'block';
-	}else{
+	}else if(contrasenna.value != null && repetir.value != null && contrasenna.value != repetir.value){
 		document.getElementById("contraIgual").innerHTML = "<p class='mal'>La contrase&ntilde;a no es la misma</p>"
 		document.getElementById("contraIgual").style.display = 'block';
 	}

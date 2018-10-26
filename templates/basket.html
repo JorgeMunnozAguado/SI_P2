@@ -22,7 +22,7 @@
 {% for film in films %}
 
 
-<div class="film" id="{{loop.index}}film">
+<div class="film" id="{{ loop.index }}film">
     <a  href="fullFilm/{{ film.link }}">
 	<div class="film_image">
 		<img src="{{ film.poster }}" alt="SW-8"/>

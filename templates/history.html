@@ -4,6 +4,8 @@
 
 {% block style %}history{% endblock %}
 
+{% block script %}<script src="scripts/history.js"></script>{% endblock %}
+
 {% block menu %}
 <a href="last">Últimas Películas</a>
 <p>Historial de Compra</p>
@@ -16,24 +18,24 @@
 <table>
 
 	<tr>
-		<th class="date">Fecha de Compra</th> <th class="name">Nombre de la Película</th> <th class="price">Precio</th>
+		<th class="date">Fecha de Compra</th> <th class="name">Películas Compradas</th> <th class="price">Precio</th>
 	</tr>
 	
 	{% if peliculas %}
 	{% for film in peliculas %}
 	<tr>
 		<td class="date">{{ film.date }}</td> 
-		<td>
-		<table>
-			<tr>
-				<th class="name">Nombre de la Película</th> <th class="price">Precio</th>
-			</tr>
-			{% for peli in film.films %}
-			<tr>
-				<td>{{ peli.name }}</td> <td class="price">{{ peli.price }}</td>
-			</tr>
-			{% endfor %}
-		</table>
+		<td id="{{ loop.index }}general" onclick="setVisible('{{ loop.index }}')">
+			<table id="{{ loop.index }}purchase" style="visibility:hidden; position:absolute;">
+				<tr>
+					<th class="name">Nombre de la Película</th> <th class="price">Precio</th>
+				</tr>
+				{% for peli in film.films %}
+				<tr>
+					<td>{{ peli.name }}</td> <td class="price">{{ peli.price }}</td>
+				</tr>
+				{% endfor %}
+			</table>
 		</td> 
 		<td class="price">{{ film.price }}</td>
 		

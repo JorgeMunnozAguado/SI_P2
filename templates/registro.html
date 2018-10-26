@@ -12,14 +12,14 @@
 	<body>
 		<div id="fondoR">
 			<h1 id="tit-form">Formulario de registro</h1><br>
-			<form action="/sing_up" method="POST">
+			<form name="formularioReg" action="/sing_up" method="POST">
 				<div class="datos">
 					Datos de usuario:<br>
 						<input required class="input_text" type="text" placeholder="Nombre de usuario" name="nombre" id="nombre" onkeyup="checkUser();">
 					<br>
 					<div id="usuarioRes">
 					</div>
-						<input required class="input_text" type="password" placeholder="Contrase&ntilde;a" name="password" id="nombre">
+						<input required class="input_text" type="password" placeholder="Contrase&ntilde;a" name="password" id="password" onkeyup="checkPassword();">
 					<br>
 						<div id="medidor">
 						</div>
@@ -32,7 +32,7 @@
 				</div>
 				<div class="datos" id="tarjeta">
 					Datos de la tarjeta:<br>
-					<input required class="input_text" type="text" placeholder="Tarjeta de credito" name="tarjeta" id="tarjeta" maxlength="16">
+					<input required class="input_text" type="text" placeholder="Tarjeta de credito" name="tarjeta" id="tarjetaValor" maxlength="16">
 					
 					<input required class="input_text" type="text" placeholder="Titular de la tarjeta" name="titular">
 					
@@ -70,84 +70,20 @@
 					</div>
 					<br>
 				</div>
-				<div class="datos">
-					<div class="generos">
-						<p>
-							Generos de inter&eacute;s:<br>
-							<input name="accion" value="accion" type="checkbox">
-							Acci&oacute;n
-							<br>
-							<input name="animacion" value="animacion" type="checkbox">
-							Animaci&oacute;n
-							<br>
-							<input name="aventura" value="aventura" type="checkbox">
-							Aventura
-							<br>
-							<input name="cienciafic" value="cienciafic" type="checkbox">
-							Ciencia-ficci&oacute;n
-							<br>
-							<input name="comedia" value="comedia" type="checkbox">
-							Comedia
-						</p>
-					</div>
-					<div class="generos">
-						<p>
-							<input name="crimen" value="crimen" type="checkbox">
-							Crimen
-							<br>
-							<input name="documental" value="documental" type="checkbox">
-							Documental
-							<br>
-							<input name="drama" value="drama" type="checkbox">
-							Drama
-							<br>
-							<input name="familia" value="familia" type="checkbox">
-							Familia
-							<br>
-							<input name="fantasia" value="fantasia" type="checkbox">
-							Fantas&iacute;a
-						</p>
-					</div>
-					<div class="generos">
-						<p>
-							<input name="guerra" value="guerra" type="checkbox">
-							Guerra
-							<br>
-							<input name="historia" value="historia" type="checkbox">
-							Historia
-							<br>
-							<input name="ninnos" value="ninnos" type="checkbox">
-							Ni&ntilde;os
-							<br>
-							<input name="misterio" value="misterio" type="checkbox">
-							Misterio
-							<br>
-							<input name="romance" value="romance" type="checkbox">
-							Romance
-							<br>
-						</p>
-					</div>
-					<div class="generos">
-						<p>
-							<input name="suspense" value="suspense" type="checkbox">
-							Suspense
-							<br>
-							<input name="western" value="western" type="checkbox">
-							Western
-							<br>
-						</p>
-					</div>
-				</div>
-				<br>
-				<input class="button" id="botoncillo1" type="button" value="Enviar" onclick="checkForm()">
-				<input class="button" id="botoncillo2" type="reset" value="Borrar">
-			</form>
 			{% if msg %}
 			<br><br>
-				<div id="error">
+				<div id="errorServidor">
 					<p>{{msg}}</p>
 				</div>
 			{% endif %}
+				<div id="errorJavascript">
+				</div>
+				<br>
+				<input class="button" type="button" onclick="history.back()" id="botonCancelar" value="Cancelar">
+				<input class="button" id="botoncillo1" type="button" value="Enviar" onclick="checkForm()">
+				<input class="button" id="botoncillo2" type="reset" value="Borrar">
+			</form>
+
 		</div> 
 		<div class="footer"><p>Alberto Moreno Brasero y Jorge Mu&ntilde;oz Aguado</p></div>
 	</body>

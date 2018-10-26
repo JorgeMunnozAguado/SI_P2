@@ -21,7 +21,9 @@
             <hr>
 			<p><strong>Saldo:</strong> <span>{{ user.balance }} €</span></p>
             <p><strong>Precio Total:</strong> <span>{{ price }} €</span></p>
-            <a class="submit">Pagar</a>
+            <form name="pay" action="/pay" method="post">
+                <button class="submit">Pagar</button>
+            </form>
             <a href="/basket" class="submit cancel">Cancelar</a>
             
         </div>

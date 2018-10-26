@@ -96,10 +96,7 @@ def basket():
                 
             buscar = obj["films"]
 
-            json_url = os.path.join(SITE_ROOT, "data", "catalogo.json")
-            pelis = jsonAPelicula(json_url)
-
-            ret = searchFilms(buscar, pelis)
+            ret = searchFilms(buscar)
 
             return render_template("basket.html", films = ret[0], precioTotal = ret[1], user=session['username'])
 
@@ -114,18 +111,23 @@ def pay():
 
     if "SessionCookie" in request.cookies:
     
-        if 'username' in session and 'password' in session:
+        if 'username' in session and 'password' in session and 'basket' in session:
 
             if Users.checkUser(session['username'], session['password']):
             
                 user = Users.getUserFromDB(session['username'])
-                
-                
                 obj = json.loads(session['basket']) ## HACER MAS BONITO
+                
+                if request.method == 'POST':
+                
+                    if Users.buyFilm(user, session['basket']) == True:
+                        session['basket'] = json.dumps({'films':[]})
+                    
+                    return redirect("/history")
+                    
+                    
                 buscar = obj["films"]
-                json_url = os.path.join(SITE_ROOT, "data", "catalogo.json")
-                pelis = jsonAPelicula(json_url)
-                ret = searchFilms(buscar, pelis)
+                ret = searchFilms(buscar)
                 
                 return render_template("pay.html", user=user, date=time.strftime("%d/%m/%y"), price=ret[1])
             
@@ -190,7 +192,7 @@ def registro():
 def comprobar_usuario(name):
     if getUserFromDB(name) == None:
         return "<p class='bien'>El nombre de usuario esta disponible<p>"
-    else
+    else:
         return "<p class='mal'>El nombre de usuario NO esta disponible<p>"
 
 

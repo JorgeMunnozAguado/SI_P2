@@ -1,5 +1,9 @@
 import json
+import os
+
 from pelicula import Pelicula
+
+SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
 def jsonAPelicula(fichero):
 
@@ -49,11 +53,14 @@ def resultadoPeliculas(search,tipo,pelis):
                 pelisFin.append(Pelicula(iter2.titulo,iter2.precio,iter2.poster,iter2.imgfondo,iter2.director,iter2.estreno,iter2.desc, iter2.link))
     return pelisFin
     
-def searchFilms(buscar, pelis):
+def searchFilms(buscar):
 
     films = []
     count = 0
     precio = 0
+
+    json_url = os.path.join(SITE_ROOT, "data", "catalogo.json")
+    pelis = jsonAPelicula(json_url)
 
     for peli in pelis:
         for busco in buscar:

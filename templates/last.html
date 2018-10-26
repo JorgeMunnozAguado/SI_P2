@@ -15,18 +15,20 @@
 {% block content %}
 	<h1>Últimas Películas</h1>
 {% for peli in peliculas %}
-	<a href="fullFilm/{{ peli.link }}">
-		<div class="film">
-			<div class="film_image">
-				<div class="state available" title="Costo">Desde {{ peli.precio }} €</div>
-				<img src="{{ peli.poster }}" alt="{{ peli.poster }}"/>
-			</div>
-			<div class="container">
-				<p>{{ peli.titulo }}</p>
-				<a class="add-basket" onclick="addToBasket(this, '{{ peli.titulo|safe }}')" title="Quitar del Carrito"><img src="images/carrito-plus.png" alt="carrito-plus.png"/></a>
-			</div>
+	
+	<div class="film">
+		<a href="fullFilm/{{ peli.link }}">
+		<div class="film_image">
+			<div class="state available" title="Costo">Desde {{ peli.precio }} €</div>
+			<img src="{{ peli.poster }}" alt="{{ peli.poster }}"/>
 		</div>
-	</a>
+		</a>
+		<div class="container">
+			<a href="fullFilm/{{ peli.link }}"><p>{{ peli.titulo }}</p></a>
+			<div class="add-basket" onclick="addToBasket(this, '{{ peli.titulo|safe }}')" title="Quitar del Carrito"><img src="images/carrito-plus.png" alt="carrito-plus.png"/></div>
+		</div>
+	</div>
+    
 {% endfor %}
 
 {% endblock %}

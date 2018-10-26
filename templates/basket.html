@@ -21,19 +21,21 @@
 
 {% for film in films %}
 
-<a  href="fullFilm/{{ film.link }}">
-	<div class="film" id="{{loop.index}}film">
-		<div class="film_image">
-			<img src="{{ film.poster }}" alt="SW-8"/>
-		</div>
-		<div class="container">
-			<p>{{ film.titulo }}</p>
-			<h1>Descripción: </h1><div>{{ film.desc }}</div>
-		</div>
-		<a class="delete available" title="Costo" onclick="removeFromBasket('{{loop.index}}film', '{{ film.titulo }}', true)">Eliminar</a>
-		<p class="price">{{ film.precio }} €</p>
+
+<div class="film" id="{{loop.index}}film">
+    <a  href="fullFilm/{{ film.link }}">
+	<div class="film_image">
+		<img src="{{ film.poster }}" alt="SW-8"/>
 	</div>
-</a>
+	<div class="container">
+		<p>{{ film.titulo }}</p>
+		<h1>Descripción: </h1><div>{{ film.desc }}</div>
+	</div>
+    </a>
+	<div class="delete available" title="Costo" onclick="removeFromBasket('{{loop.index}}film', '{{ film.titulo }}', true)">Eliminar</div>
+	<p class="price">{{ film.precio }} €</p>
+</div>
+
 {% endfor %}
 
 <a href="/pay" class="buy bought">Tramitar Compra</a>

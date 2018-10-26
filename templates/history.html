@@ -22,7 +22,22 @@
 	{% if peliculas %}
 	{% for film in peliculas %}
 	<tr>
-		<td class="date">{{ film.date }}</td> <td>{{ film.name }}</td> <td class="price">{{ film.price }}</td>
+		<td class="date">{{ film.date }}</td> 
+		<td>
+		<table>
+			<tr>
+				<th class="name">Nombre de la Película</th> <th class="price">Precio</th>
+			</tr>
+			{% for peli in film.films %}
+			<tr>
+				<td>{{ peli.name }}</td> <td class="price">{{ peli.price }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+		</td> 
+		<td class="price">{{ film.price }}</td>
+		
+		
 	</tr>
 	{% endfor %}
 </table>

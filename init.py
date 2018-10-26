@@ -69,7 +69,7 @@ def index():
 def last():
     json_url = os.path.join(SITE_ROOT, "data", "catalogo.json")
     pelis = jsonAPelicula(json_url)
-    return checkSessionPelis("last.html", pelis)
+    return checkSessionPelis("last.html", pelis,False)
 
 
 @app.route("/fullFilm/<name>")
@@ -80,7 +80,7 @@ def fullFilm(name):
     
     for peli in pelis:
         if name == peli.link:
-            return checkSessionPelis("fullFilm.html", peli)
+            return checkSessionPelis("fullFilm.html", peli,False)
             
     return redirect('/last')
 
@@ -139,7 +139,7 @@ def pay():
 
 @app.route("/history")
 def history():
-    return checkSessionPelis("history.html", Users.listUserFilms(session['username']))
+    return checkSessionPelis("history.html", Users.listUserFilms(session['username']),False)
 
 
 @app.route("/sing_up")
@@ -206,12 +206,12 @@ def search():
         search=request.args.get('search')
         tipo=request.args.get('programa')
 
-        return checkSessionPelis("search.html",peliculas=resultadoPeliculas(search,tipo,pelis))
+        return checkSessionPelis("last.html",peliculas=resultadoPeliculas(search,tipo,pelis),search=True)
     elif request.method == 'POST':
         search=request.form['search']
         tipo=request.form['programa']
 
-        return checkSessionPelis("search.html",peliculas=resultadoPeliculas(search,tipo,pelis))
+        return checkSessionPelis("last.html",peliculas=resultadoPeliculas(search,tipo,pelis),search=True)
     else:
         return redirect(url_for('last'))
 
@@ -281,14 +281,17 @@ def checkSession(url):
     return redirect("/")
 
 
-def checkSessionPelis(url, peliculas):
+def checkSessionPelis(url, peliculas,search):
 
     if "SessionCookie" in request.cookies:
     
         if 'username' in session and 'password' in session:
 
             if Users.checkUser(session['username'], session['password']):
-                return render_template(url, peliculas=peliculas, user=session['username'])
+		if(search == False):
+                    return render_template(url, peliculas=peliculas, user=session['username'])
+                else:
+                    return render_template(url, peliculas=peliculas, user=session['username'],search=True)
                 
     return redirect("/")
 

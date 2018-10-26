@@ -190,7 +190,7 @@ def registro():
 
 @app.route("/compr_usuario/<name>")
 def comprobar_usuario(name):
-    if getUserFromDB(name) == None:
+    if Users.getUserFromDB(name) == None:
         return "<p class='bien'>El nombre de usuario esta disponible<p>"
     else:
         return "<p class='mal'>El nombre de usuario NO esta disponible<p>"

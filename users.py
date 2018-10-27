@@ -90,6 +90,9 @@ class Users:
         if films[1] > user.balance:
             return False
         
+        if (float(user.balance) - float(films[1])) < 0:
+            return False
+        
         user.balance = str(float(user.balance) - float(films[1])) 
         
         Users.updateUser(user)

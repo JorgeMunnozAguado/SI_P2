@@ -1,16 +1,12 @@
 
 function setVisible( id ) {
 
-    purchase = document.getElementById(id + 'purchase');
-    purchase.style.visibility = 'visible';
-    purchase.style.position = 'static';
+    document.getElementById(id + 'purchase').style.display = 'inline-table';
     document.getElementById(id + 'general').onclick = function(){ setHidden( id ) }
 }
 
 function setHidden( id ) {
 
-    purchase = document.getElementById(id + 'purchase');
-    purchase.style.visibility = 'hidden';
-    purchase.style.position = 'absolute';
+    document.getElementById(id + 'purchase').style.display = 'none';
     document.getElementById(id + 'general').onclick = function(){ setVisible( id ) }
 }

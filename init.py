@@ -122,8 +122,14 @@ def pay():
                 
                     if Users.buyFilm(user, session['basket']) == True:
                         session['basket'] = json.dumps({'films':[]})
+                        redirect("/history")
                     
-                    return redirect("/history")
+                    else:
+                    
+                        buscar = obj["films"]
+                        ret = searchFilms(buscar)
+                    
+                        return render_template("pay-fail.html", user=user, date=time.strftime("%d/%m/%y"), price=ret[1])
                     
                     
                 buscar = obj["films"]
@@ -134,12 +140,21 @@ def pay():
         
             return render_template("pay.html")
             
-    redirect("/")
+    return redirect("/")
     
 
 @app.route("/history")
 def history():
-    return checkSessionPelis("history.html", Users.listUserFilms(session['username']),False)
+
+    if "SessionCookie" in request.cookies:
+    
+        if 'username' in session and 'password' in session:
+
+            if Users.checkUser(session['username'], session['password']):
+            
+                return render_template("history.html", peliculas=Users.listUserFilms(session['username']), user=session['username'])
+    
+    return redirect("/")
 
 
 @app.route("/sing_up")
@@ -288,8 +303,10 @@ def checkSessionPelis(url, peliculas,search):
         if 'username' in session and 'password' in session:
 
             if Users.checkUser(session['username'], session['password']):
-		if(search == False):
+            
+                if(search == False):
                     return render_template(url, peliculas=peliculas, user=session['username'])
+                    
                 else:
                     return render_template(url, peliculas=peliculas, user=session['username'],search=True)
                 

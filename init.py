@@ -157,43 +157,36 @@ def history():
     return redirect("/")
 
 
-@app.route("/sing_up")
+@app.route("/sing_up",methods=['GET','POST'])
 def registro():
     if 'tarjeta' in request.form:
         if request.method == 'GET':
             nombre=request.args.get('nombre').lower()
             password=request.args.get('password')
-            if getUserFromDB(nombre) != None:
+            if Users.getUserFromDB(nombre) != None:
                 return render_template("registro.html",msg="Nombre de usuario ya registrado")
-            if createNewUser(request.args.get('nombre').lower(), request.args.get('password'),request.args.get('tarjeta'), 0,request.args.get('email')) == None:
+            if Users.createNewUser(request.args.get('nombre').lower(), request.args.get('password'),request.args.get('tarjeta'), 0,request.args.get('email')) == None:
                 return render_template("registro.html",msg="Error al crear el usuario")
             else:
                 if Users.checkUser(nombre,password):
-                    expire_date = datetime.datetime.now()
-                    expire_date = expire_date + datetime.timedelta(hours = 1)
 
                     resp = make_response(redirect("/last"))
-                    session['username'] = username
-                    session['password'] = password
+                    '''Iniciar sesion'''
             
                     return resp
                 else:
                      return render_template("index.html")
         elif request.method == 'POST':
             nombre=request.form['nombre'].lower()
-            if getUserFromDB(nombre) != None:
+            if Users.getUserFromDB(nombre) != None:
                 return render_template("registro.html",msg="Nombre de usuario ya registrado")
             password=request.form['password']
-            if createNewUser(request.form['nombre'].lower(), request.form['password'], request.form['tarjeta'], 0, request.form['email']) == None:
+            if Users.createNewUser(request.form['nombre'].lower(), request.form['password'], request.form['tarjeta'], 0, request.form['email']) == None:
                 return render_template("registro.html",msg="Error al crear el usuario")
             else:
                 if Users.checkUser(nombre,password):
-                    expire_date = datetime.datetime.now()
-                    expire_date = expire_date + datetime.timedelta(hours = 1)
-
-                    resp = make_response(redirect("/last"))
-                    session['username'] = username
-                    session['password'] = password
+                    '''Iniciar sesion'''
+                    
             
                     return resp
                 else:

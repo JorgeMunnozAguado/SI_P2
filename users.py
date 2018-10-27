@@ -28,7 +28,7 @@ class Users:
                 file.write('{"films":[]}')
                 
                 file = open(FOLDER_PATH + name + "/info.json", "w")
-                file.write('{"name":"' + name + '","password":"' + password + '","ccard":"' + ccard + '","balance":"' + balance + '","email":"' + email + '"}')
+                file.write('{"name":"' + str(name) + '","password":"' + str(password) + '","ccard":"' + str(ccard) + '","balance":"' + str(balance) + '","email":"' + str(email) + '"}')
                 
                 return Users(name, password, ccard, balance, email)
                 
@@ -107,7 +107,7 @@ class Users:
         #if aux == False:
         #    return False
 
-        purchase = {"purchase":str(datetime.datetime.now()), "date":time.strftime("%d/%m/%y"), "price":films[1], "films":f}
+        purchase = {"purchase":str(datetime.now()), "date":time.strftime("%d/%m/%y"), "price":films[1], "films":f}
         
         parse['films'].append(purchase)
         #print >>sys.stderr, parse

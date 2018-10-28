@@ -19,6 +19,7 @@
     left: 150px;
     right: 125px;
     position: absolute;
+    color: #000;
 }
 
 .container p {
@@ -102,3 +103,11 @@
 .film_image img {
     width: 120px;
 }
+
+.small {
+    width: 54px !important;
+    position: absolute;
+    top: 67px;
+    right: 10px;
+}
+

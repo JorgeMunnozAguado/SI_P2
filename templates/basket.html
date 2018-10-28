@@ -32,8 +32,9 @@
 		<h1>Descripción: </h1><div>{{ film.desc }}</div>
 	</div>
     </a>
+	<input type="number" id="{{ loop.index }}input" value="{{ film.number }}" class="input_text small" onfocusout="changeNumber('{{ loop.index }}', '{{ film.titulo }}')"/>
 	<div class="delete available" title="Costo" onclick="removeFromBasket('{{loop.index}}film', '{{ film.titulo }}', true)">Eliminar</div>
-	<p class="price">{{ film.precio }} €</p>
+	<p class="price" id="{{ loop.index }}price">{{ film.precio }} €</p>
 </div>
 
 {% endfor %}

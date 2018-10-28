@@ -1,5 +1,6 @@
 import json
 import os
+import sys
 
 from pelicula import Pelicula
 
@@ -67,9 +68,14 @@ def searchFilms(buscar):
         
             if peli.titulo == busco["name"]:
             
-                precio += int(peli.precio)
                 count += 1
-                films.append(Pelicula(peli.titulo, peli.precio, peli.poster, peli.imgfondo, peli.director, peli.estreno, peli.desc, peli.link))
+                
+                if "number" in busco:
+                    precio += int(peli.precio) * int(busco['number'])
+                    films.append({"titulo":peli.titulo, "precio":int(peli.precio) * int(busco['number']), "poster":peli.poster, "fondo":peli.imgfondo, "director":peli.director, "estreno":peli.estreno, "desc":peli.desc, "link":peli.link, "number":busco['number']})
+                else:
+                    precio += int(peli.precio)
+                    films.append(Pelicula(peli.titulo, peli.precio, peli.poster, peli.imgfondo, peli.director, peli.estreno, peli.desc, peli.link))
                 
                 if count == len(buscar): return [films, precio]
 

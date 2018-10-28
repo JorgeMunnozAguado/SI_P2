@@ -1,3 +1,102 @@
+function checkPasswordRequisites(password){
+	var fallo = 0;
+	var capital = ['Q','W','E','R','T','Y','U','I','O','P','A','S','D','F','G','H','J','K','L','Z','X','C','V','B','N','M'];
+	var minus = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+    var number = ['0','1','2','3','4','5','6','7','8','9'];
+    var symbol = ['~', '`', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '=', '|', '\\', '[', '{', ']', '}', ':', ';', '\'', '"', ',', '<', '.', '>', '/', '?'];
+    var numberCount = 0;
+    var minusCount = 0;
+    var capitalCount = 0;
+    var symbolCount = 0;
+    var valido = false;
+    var i=0;
+    var letra='';
+    var height=0;
+
+	if(password.length < 8){
+		if(fallo == 0){
+			document.getElementById('errorJavascript').innerHTML=document.getElementById('errorJavascript').innerHTML.concat("<br><p>Los requisitos de la contrase&ntilde;a no cumplidos son:</p><li>");
+			fallo=1;
+		}
+		document.getElementById('errorJavascript').innerHTML=document.getElementById('errorJavascript').innerHTML.concat("<ul>Un m&iacute;nimo de 8 caracteres.</ul>");
+		height=parseInt(document.getElementById('errorJavascript').style.height);
+		height=height+60;
+		height_str=height.toString();
+		document.getElementById('errorJavascript').style.height=height_str.concat("px");
+	}
+
+	for (i = 0; i < password.length; i++) {
+        letra = password.charAt(i);
+        valido = capital.test(letra);
+        if (valido) {
+            capitalCount++;
+        }
+        valido = number.test(letra);
+        if (valido) {
+            numberCount++;
+        }
+        valido = minus.test(letra);
+        if (valido) {
+            minusCount++;
+        }
+        valido=symbol.test(letra)
+        if (valido) {
+            symbolCount++;
+        }
+    }
+
+    if(capitalCount == 0){
+    	if(fallo == 0){
+			document.getElementById('errorJavascript').innerHTML=document.getElementById('errorJavascript').innerHTML.concat("<br><p>Los requisitos de la contrase&ntilde;a no cumplidos son:</p><li>");
+			fallo=1;
+		}
+		document.getElementById('errorJavascript').innerHTML=document.getElementById('errorJavascript').innerHTML.concat("<ul>Una letra may&uacute;scula.</ul>");
+		height=parseInt(document.getElementById('errorJavascript').style.height);
+		height=height+60;
+		height_str=height.toString();
+		document.getElementById('errorJavascript').style.height=height_str.concat("px");
+	}
+    if(numberCount == 0){
+    	if(fallo == 0){
+			document.getElementById('errorJavascript').innerHTML=document.getElementById('errorJavascript').innerHTML.concat("<br><p>Los requisitos de la contrase&ntilde;a no cumplidos son:</p><li>");
+			fallo=1;
+		}
+		document.getElementById('errorJavascript').innerHTML=document.getElementById('errorJavascript').innerHTML.concat("<ul>Un n&uacute;mero.</ul>");
+		height=parseInt(document.getElementById('errorJavascript').style.height);
+		height=height+60;
+		height_str=height.toString();
+		document.getElementById('errorJavascript').style.height=height_str.concat("px");
+    }
+    if(minusCount == 0){
+    	if(fallo == 0){
+			document.getElementById('errorJavascript').innerHTML=document.getElementById('errorJavascript').innerHTML.concat("<br><p>Los requisitos de la contrase&ntilde;a no cumplidos son:</p><li>");
+			fallo=1;
+		}
+		document.getElementById('errorJavascript').innerHTML=document.getElementById('errorJavascript').innerHTML.concat("<ul>Una letra min&uacute;scula.</ul>");	
+		height=parseInt(document.getElementById('errorJavascript').style.height);
+		height=height+60;
+		height_str=height.toString();
+		document.getElementById('errorJavascript').style.height=height_str.concat("px");
+    }
+    if(symbolCount == 0){
+        if(fallo == 0){
+			document.getElementById('errorJavascript').innerHTML=document.getElementById('errorJavascript').innerHTML.concat("<br><p>Los requisitos de la contrase&ntilde;a no cumplidos son:</p><li>");
+			fallo=1;
+		}
+		document.getElementById('errorJavascript').innerHTML=document.getElementById('errorJavascript').innerHTML.concat("<ul>Un s&iacute;mbolo.</ul>");	
+		height=parseInt(document.getElementById('errorJavascript').style.height);
+		height=height+60;
+		height_str=height.toString();
+		document.getElementById('errorJavascript').style.height=height_str.concat("px");
+	}
+
+	if(fallo == 1){
+		document.getElementById('errorJavascript').innerHTML=document.getElementById('errorJavascript').innerHTML.concat("</li>");
+	}
+	
+	return fallo;
+}
+
 function checkForm(){
 	var nombre = document.getElementById('nombre');
 	var contrasenna = document.getElementById('password');
@@ -19,9 +118,26 @@ function checkForm(){
 		height_str=height.toString();
 		document.getElementById('errorJavascript').style.height=height_str.concat("px");
 	}
+	if(nombre.value == ''){
+		fallo=1;
+		document.getElementById('errorJavascript').innerHTML=document.getElementById('errorJavascript').innerHTML.concat("<p>El nombre de usuario no debe estar vacio.</p>");
+		document.getElementById('errorJavascript').style.display='block';
+		height=parseInt(document.getElementById('errorJavascript').style.height);
+		height=height+60;
+		height_str=height.toString();
+		document.getElementById('errorJavascript').style.height=height_str.concat("px");
+	}
+
+	if(fallo == 0){
+		fallo = checkPasswordRequisites(contrasenna.value);
+		document.getElementById('errorJavascript').style.display='block';
+	}else{
+		checkPasswordRequisites(contrasenna.value);
+	}
+	
 	if(contrasenna.value != repetir.value){
 		fallo=1;
-		document.getElementById('errorJavascript').innerHTML=document.getElementById('errorJavascript').innerHTML.concat("<p>Las contrase&ntilde;as no son iguales</p>");
+		document.getElementById('errorJavascript').innerHTML=document.getElementById('errorJavascript').innerHTML.concat("<br><p>Las contrase&ntilde;as no son iguales</p>");
 		document.getElementById('errorJavascript').style.display='block';
 		height=parseInt(document.getElementById('errorJavascript').style.height);
 		height=height+60;

@@ -18,10 +18,12 @@
 	</div>
 	<h1>{{ peliculas.titulo }}</h1>
 	<div id="state_full" class="state available" title="Costo">Desde {{ peliculas.precio }} €</div>
-	<a class="status-basket">
-		Añadir al carrito 
-		<div><img src="/images/carrito-plus.png" alt="carrito"/></div>
-	</a>
+	{% if user %}
+		<a class="status-basket">
+			Añadir al carrito 
+			<div><img src="/images/carrito-plus.png" alt="carrito"/></div>
+		</a>
+	{% endif %}
 </div>
 
 <div id="description">

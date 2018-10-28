@@ -87,7 +87,7 @@ def basket():
 
     if "SessionCookie" in request.cookies:
     
-        if 'username' in session and 'password' in session and 'basket' in session:
+        if 'username' in session and 'password' in session:
 
             if Users.checkUser(session['username'], session['password']):
             
@@ -101,8 +101,7 @@ def basket():
 
                     return render_template("basket.html", films = ret[0], precioTotal = ret[1], user=session['username'])
 
-                else:
-                    return checkSession("basket.html")
+                return checkSession("basket.html")
     
     return redirect("/")
 
@@ -123,7 +122,7 @@ def pay():
                 
                     if Users.buyFilm(user, session['basket']) == True:
                         session['basket'] = json.dumps({'films':[]})
-                        redirect("/history")
+                        return redirect("/history")
                     
                     else:
                     
@@ -281,6 +280,31 @@ def ajax():
     
     return "OK"
     
+    
+@app.route("/balance_ajax", methods=['POST'])
+def balance_ajax():
+
+    if "SessionCookie" in request.cookies:
+    
+        if 'username' in session and 'password' in session:
+
+            if Users.checkUser(session['username'], session['password']):
+            
+                user = Users.getUserFromDB(session['username'])
+            
+                if not (user is None):
+                
+                    balance = request.form['balance']
+
+                    if float(user.balance) < float(balance):
+                        
+                        user.balance = balance
+                        
+                        Users.updateUser(user)
+                
+                        return "OK"
+
+    return "ERROR"
 
 @app.route('/images/<path:path>')
 def send_images(path):

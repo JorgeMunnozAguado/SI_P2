@@ -54,6 +54,32 @@ function removeFromBasket(id, name, aux) {
     xhttp.send('type=remove&name=' + name);  
 }
 
+function changeNumber(id, name) {
+    
+    var xhttp = new XMLHttpRequest();
+    
+    number = document.getElementById(id + "input").value;
+    var elem = document.getElementById(id + "price");
+    
+    var price_one = parseInt(elem.innerText) / parseInt(number);
+    
+    xhttp.onreadystatechange = function() {
+        
+        if (this.readyState == 4 && this.status == 200) {
+            
+            var price = document.getElementById("real-price");
+            var newprice = (parseInt(elem.innerText) / parseInt(this.responseText)) * parseInt(number);
+            price.innerHTML = (parseInt(price.innerText) - parseInt(elem.innerText) + newprice) + " €";
+            elem.innerHTML = newprice + ' €';
+        }
+    };
+    
+    xhttp.open("POST", "ajax_url", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send('type=number&name=' + name + '&number=' + number);    
+}
+
+
 /* Function getCookie from WCS <https://www.w3schools.com/js/js_cookies.asp> */
 function getCookie(cname) {
     

@@ -87,18 +87,22 @@ def basket():
 
     if "SessionCookie" in request.cookies:
     
-        if "basket" in session:
+        if 'username' in session and 'password' in session and 'basket' in session:
 
-            obj = json.loads(session['basket'])
-                
-            buscar = obj["films"]
+            if Users.checkUser(session['username'], session['password']):
+            
+                if "basket" in session:
 
-            ret = searchFilms(buscar)
+                    obj = json.loads(session['basket'])
+                        
+                    buscar = obj["films"]
 
-            return render_template("basket.html", films = ret[0], precioTotal = ret[1], user=session['username'])
+                    ret = searchFilms(buscar)
 
-        else:
-            return checkSession("basket.html")
+                    return render_template("basket.html", films = ret[0], precioTotal = ret[1], user=session['username'])
+
+                else:
+                    return checkSession("basket.html")
     
     return redirect("/")
 
@@ -211,12 +215,12 @@ def search():
         search=request.args.get('search')
         tipo=request.args.get('programa')
 
-        return checkSessionPelis("last.html",peliculas=resultadoPeliculas(search,tipo,pelis),search=True)
+        return checkSessionPelis("last.html",peliculas=resultadoPeliculas(search,tipo,pelis), search=True)
     elif request.method == 'POST':
         search=request.form['search']
         tipo=request.form['programa']
 
-        return checkSessionPelis("last.html",peliculas=resultadoPeliculas(search,tipo,pelis),search=True)
+        return checkSessionPelis("last.html",peliculas=resultadoPeliculas(search,tipo,pelis), search=True)
     else:
         return redirect(url_forurl_for('/'))
 
@@ -245,15 +249,32 @@ def ajax():
     name = request.form['name']
     type = request.form['type']
     
-    if not ({'name':name} in parse['films']):
+    try:
+        film = (item for item in parse['films'] if item["name"] == name).next()
 
-        if type == "add":
-            parse['films'].append({'name':name})
-        
-    else:
         if type == "remove":
-            parse['films'].remove({'name':name})
+            parse['films'].remove(film)
+            
+        if type == "number":
+            
+            parse['films'].remove(film)
+            
+            number = request.form['number']
+            old = film["number"]
+
+            film["number"] = number
+            
+            parse['films'].append(film)
+            
+            session['basket'] = json.dumps(parse)
+            
+            return old
+        
+    except:
     
+        if type == "add":
+            parse['films'].append({'name':name, 'number':'1'})
+
     #print >>sys.stderr, 'WRITE: ' + str(parse)
     
     session['basket'] = json.dumps(parse)
@@ -294,13 +315,17 @@ def checkSessionPelis(url, peliculas,search):
 
             if Users.checkUser(session['username'], session['password']):
             
-                if(search == False):
+                if search == False:
                     return render_template(url, peliculas=peliculas, user=session['username'])
                     
                 else:
-                    return render_template(url, peliculas=peliculas, user=session['username'],search=True)
+                    return render_template(url, peliculas=peliculas, user=session['username'], search=True)
                 
-    return render_template(url, peliculas=peliculas)
+    if search == False:
+        return render_template(url, peliculas=peliculas)
+        
+    else:
+        return render_template(url, peliculas=peliculas,    search=True)
 
 if __name__ == "__main__":
     app.run()

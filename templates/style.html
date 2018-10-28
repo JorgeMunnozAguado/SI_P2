@@ -16,11 +16,13 @@
 				<img src="/images/logotipo.png" alt="logo"/>
 			</div>
 			
+            {% if user %}
 			<a href="basket">
 				<div id="carrito">
 					<img src="/images/carrito.png" alt="carrito"/>
 				</div>
 			</a>
+            {% endif %}
 			
 		</div>
 		
@@ -41,12 +43,21 @@
 			</div>
 			
 			<div class="links">
-					
-				{% block menu %}
-				<a href="/">Últimas Películas</a>
-				<a href="/history">Historial de Compra</a>
-				<a href="/basket">Carrito</a>
-				{% endblock %}
+				
+                {% if user %}
+        				{% block menu %}
+        				<a href="/">Últimas Películas</a>
+        				<a href="/history">Historial de Compra</a>
+        				<a href="/basket">Carrito</a>
+        				{% endblock %}
+                {% else %}
+    				{% if search %}
+                    		<a href="/">Últimas Películas</a>
+                    		<p>Resultados de la Búsqueda</p>
+                    	{% else %}
+                    		<a href="/">Últimas Películas</a>
+                    	{% endif %}
+				{% endif %}
 				
 			</div>
 			

@@ -31,17 +31,22 @@ except ImportError as e:
 
 
 
-
-
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/",methods=['GET', 'POST'])
 def index():
+    json_url = os.path.join(SITE_ROOT, "data", "catalogo.json")
+    pelis = jsonAPelicula(json_url)
+    return checkSessionPelis("last.html", pelis,False)
+
+
+@app.route("/login", methods=['GET', 'POST'])
+def login():
 
     if "SessionCookie" in request.cookies:
 
         if 'username' in session and 'password' in session:
 
             if Users.checkUser(session['username'], session['password']):
-                return redirect("/last")
+                return redirect("/")
                 
 
     if request.method == 'POST':
@@ -51,7 +56,7 @@ def index():
 
         if Users.checkUser(username, password):
 
-            resp = make_response(redirect("/last"))
+            resp = make_response(redirect("/"))
             
             session['username'] = username
             session['password'] = password
@@ -63,14 +68,6 @@ def index():
 
 
     return render_template("index.html")
-            
-
-@app.route("/last")
-def last():
-    json_url = os.path.join(SITE_ROOT, "data", "catalogo.json")
-    pelis = jsonAPelicula(json_url)
-    return checkSessionPelis("last.html", pelis,False)
-
 
 @app.route("/fullFilm/<name>")
 def fullFilm(name):
@@ -82,7 +79,7 @@ def fullFilm(name):
         if name == peli.link:
             return checkSessionPelis("fullFilm.html", peli,False)
             
-    return redirect('/last')
+    return redirect('/')
 
 
 @app.route("/basket")
@@ -157,7 +154,7 @@ def history():
     return redirect("/")
 
 
-@app.route("/sing_up",methods=['GET','POST'])
+@app.route("/sing_in",methods=['GET','POST'])
 def registro():
     if 'tarjeta' in request.form:
         if request.method == 'GET':
@@ -170,7 +167,7 @@ def registro():
             else:
                 if Users.checkUser(nombre,password):
 
-                    resp = make_response(redirect("/last"))
+                    resp = make_response(redirect("/"))
                     '''Iniciar sesion'''
             
                     return resp
@@ -221,7 +218,7 @@ def search():
 
         return checkSessionPelis("last.html",peliculas=resultadoPeliculas(search,tipo,pelis),search=True)
     else:
-        return redirect(url_for('last'))
+        return redirect(url_forurl_for('/'))
 
 @app.route("/close")
 def closeSession():
@@ -303,7 +300,7 @@ def checkSessionPelis(url, peliculas,search):
                 else:
                     return render_template(url, peliculas=peliculas, user=session['username'],search=True)
                 
-    return redirect("/")
+    return render_template(url, peliculas=peliculas)
 
 if __name__ == "__main__":
     app.run()

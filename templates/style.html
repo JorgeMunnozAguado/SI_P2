@@ -31,11 +31,11 @@
 				{% if user %}
 				<img src="/images/imagen.jpg" alt="foto-perfil"/>
 				<h1>{{ user }}</h1>
-				<a href="/close">Cerrar Sesión</a>
+				<a href="/close" id="botonCerrarSesion">Cerrar Sesión</a>
 				{% else %}
 				<h1>Usuario no identificado</h1>
-				<a href="/">Identifiquese</a>
-				<a href="/sing_in">Registrarse</a>
+				<a href="/login" id="botonLogin">Identifiquese</a><br>
+				<a href="/sing_in" id="botonRegistro">Registrarse</a>
 				{% endif %}
 			
 			</div>
@@ -43,7 +43,7 @@
 			<div class="links">
 					
 				{% block menu %}
-				<a href="/last">Últimas Películas</a>
+				<a href="/">Últimas Películas</a>
 				<a href="/history">Historial de Compra</a>
 				<a href="/basket">Carrito</a>
 				{% endblock %}

@@ -102,12 +102,12 @@ class Users:
             #if Users.isFilmBuy(user, film) == False:
             #    aux = True
             #    f.append({"name":film.titulo, "precio":film.precio})
-            f.append({"name":film.titulo, "price":film.precio})
+            f.append({"name":film["titulo"], "price":film["precio"], "number":film["number"]})
 
         #if aux == False:
         #    return False
 
-        purchase = {"purchase":str(datetime.now()), "date":time.strftime("%d/%m/%y"), "price":films[1], "films":f}
+        purchase = {"purchase":str(datetime.datetime.now()), "date":time.strftime("%d/%m/%y"), "price":films[1], "films":f}
         
         parse['films'].append(purchase)
         #print >>sys.stderr, parse

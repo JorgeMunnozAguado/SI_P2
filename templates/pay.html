@@ -4,12 +4,13 @@
 		<link rel="shortcut icon" href="images/logotipo-aux.png" type="image/x-icon">
 		<link rel="stylesheet" type="text/css" href="/styles/pay.css">
 		<link rel="stylesheet" type="text/css" href="/styles/general.css">
+		<script src="scripts/pay.js"></script>
 		<title>Nitflix: Tramitar compra</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	</head>
 	<body>
 	
-        {% block log %}{% endblock %}
+        {% block log %}<div id="log" class="okey">TODO CORRECTO<div id="close" onclick="document.getElementById('log').style.display = 'none';">x</div></div>{% endblock %}
 	
         <div id="center">
 		
@@ -22,7 +23,7 @@
             <p><strong>Fecha de pago:</strong> <span>{{ date }}</span></p>
             <p><strong>Tarjeta:</strong> <span>{{ user.ccard }}</span></p>
             <hr>
-			<p><strong>Saldo:</strong> <span>{{ user.balance }} €</span></p>
+			<p><strong>Saldo:</strong> <span> €</span><input type="number" value="{{ user.balance }}" id="balance" onfocusout="addBalance()"/></p>
             <p><strong>Precio Total:</strong> <span>{{ price }} €</span></p>
             <form name="pay" action="/pay" method="post">
                 <button class="submit">Pagar</button>

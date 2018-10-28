@@ -25,14 +25,14 @@
 	{% for film in peliculas %}
 	<tr>
 		<td class="date">{{ film.date }}</td> 
-		<td id="{{ loop.index }}general" onclick="setVisible('{{ loop.index }}')">
+		<td id="{{ loop.index }}general" onclick="setVisible('{{ loop.index }}')" title="Pulsar aquí para desplegar" style="cursor: pointer;">
 			<table id="{{ loop.index }}purchase" style="display: none;">
 				<tr>
-					<th class="name">Nombre de la Película</th> <th class="price">Precio</th>
+					<th class="name">Nombre de la Película</th> <th class="price">Cantidad</th> <th class="price">Precio</th>
 				</tr>
 				{% for peli in film.films %}
 				<tr>
-					<td>{{ peli.name }}</td> <td class="price">{{ peli.price }}</td>
+					<td>{{ peli.name }}</td> <td class="price">{{ peli.number }}</td> <td class="price">{{ peli.price }}</td>
 				</tr>
 				{% endfor %}
 			</table>

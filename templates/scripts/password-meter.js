@@ -27,17 +27,10 @@
         _setKeyPressEvent: function () {
             var that = this;
             var id = that.vars.passwordBoxId;
-            /*$('#' + id + ' #password').on('keydown', function () {
+            $('#' + id + ' #password').on('keyup', function () {
                 that.vars.passwordBoxId = id;
                 var password = $(this).val();
-
-            });*/
-           $('#' + id + '#password').on('keyup', function () {
-                that.vars.passwordBoxId = id;
-                var password = $(this).val();
-                var repite = $('#' + id + '#repite').val();
                 that._validatePassword(password);
-                that._checkPassword(password,repite);
             });
         },
         _validatePassword: function (password) {
@@ -74,17 +67,6 @@
                 that.vars.strength += 25;
             }
             that._setClasses();
-        },
-        _checkPassword: function(password,repite){
-                if(repetir.value == "" || password.value == ""){
-                    $('#contraIgual').style.display = 'none';
-                }else if(password.value != null && repetir.value != null && password.value != repetir.value){
-                    $('#contraIgual').innerHTML = "<p class='mal'>La contrase&ntilde;a no es la misma</p>";
-                    $('#contraIgual').style.display = 'block';
-                }else if(repetir.value != null && password.value != null && password.value == repetir.value){
-                    $('#contraIgual').innerHTML = "<p class='bien'>La contrase&ntilde;a es la misma</p>";
-                    $('#contraIgual').style.display = 'block';
-                }
         },
 
         _setClasses: function () {

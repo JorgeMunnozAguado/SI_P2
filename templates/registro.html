@@ -6,6 +6,12 @@
 		<link rel="stylesheet" type="text/css" href="styles/general.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="scripts/registro.js"></script>
+	    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+	    <link href="styles/main.css" rel="stylesheet" />
+	    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+	    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	    <script src="scripts/password-meter.js"></script>
 		<title>Nitflix: Registro</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	</head>
@@ -19,14 +25,21 @@
 					<br>
 					<div id="usuarioRes">
 					</div>
-						<input required class="input_text" type="password" placeholder="Contrase&ntilde;a" name="password" id="password" onkeyup="checkPassword();">
-					<br>
-						<div id="medidor">
-						</div>
-					<br>
-						<input required class="input_text" type="password" placeholder="Repetir contrase&ntilde;a" name="repite" id="repite" onkeyup="checkPassword();">
+				    <div id="divPassword">
+				        <input type="password" id="password" class="input_text password left" placeholder="Contrase&ntilde;a" />
+				        <div class="input_text password-meter left">
+				            <div class="password-strength"></div>
+				        </div>
+				    <br>
+				    <br>
+				    <br>
+						<!--input required class="input_text" type="password" placeholder="Contrase&ntilde;a" name="password" id="txtPassword" onkeyup="checkPassword();">
+					<br-->
+						<input required class="input_text" type="password" placeholder="Repetir contrase&ntilde;a" name="repite" id="repite"  onkeyup="checkPassword();">
 						<div id="contraIgual">
 						</div>
+				    </div>
+
 					<br>
 						<input required class="input_text" type="text" placeholder="E-mail" name="email" id="email">
 				</div>
@@ -51,5 +64,11 @@
 
 		</div> 
 		<div class="footer"><p>Alberto Moreno Brasero y Jorge Mu&ntilde;oz Aguado</p></div>
+	    <script>
+	        $(document).ready(function () {
+	            $('#divPassword').PasswordMeter();
+	        });
+	    </script>
 	</body>
+
 </html>

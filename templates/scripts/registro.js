@@ -1,9 +1,3 @@
-
-
-$(document).ready(function(){
- $("#medidor").html("This is Hello World by JQuery");
-});
-
 function checkForm(){
 	var nombre = document.getElementById('nombre');
 	var contrasenna = document.getElementById('password');
@@ -71,7 +65,7 @@ function checkForm(){
 }
 
 function checkUser(){
-document.getElementById("usuarioRes").style.display = 'none';
+	document.getElementById("usuarioRes").style.display = 'none';
 	if(document.getElementById('nombre').value.includes(" ") == true){
 		document.getElementById("usuarioRes").innerHTML = "<p class='mal'>El nombre de usuario no debe contener espacios.</p>";
 		document.getElementById("usuarioRes").style.display = 'block';
@@ -89,18 +83,19 @@ document.getElementById("usuarioRes").style.display = 'none';
 	xhttp.send();
 }
 
-function checkPassword(){
-	var contrasenna = document.getElementById('password');
-	var repetir = document.getElementById('repite');
 
-	
-	if(repetir.value == "" || contrasenna.value == ""){
-		document.getElementById("contraIgual").style.display = 'none';
-	}else if(contrasenna.value != null && repetir.value != null && contrasenna.value != repetir.value){
-		document.getElementById("contraIgual").innerHTML = "<p class='mal'>La contrase&ntilde;a no es la misma</p>";
-		document.getElementById("contraIgual").style.display = 'block';
-	}else if(repetir.value != null && contrasenna.value != null && contrasenna.value == repetir.value){
-		document.getElementById("contraIgual").innerHTML = "<p class='bien'>La contrase&ntilde;a es la misma</p>";
-		document.getElementById("contraIgual").style.display = 'block';
-	}
+function checkPassword(){
+    var contrasenna = document.getElementById('password');
+    var repetir = document.getElementById('repite');
+
+    
+    if(repetir.value == "" || contrasenna.value == ""){
+        document.getElementById("contraIgual").style.display = 'none';
+    }else if(contrasenna.value != null && repetir.value != null && contrasenna.value != repetir.value){
+        document.getElementById("contraIgual").innerHTML = "<p class='mal'>La contrase&ntilde;a no es la misma</p>";
+        document.getElementById("contraIgual").style.display = 'block';
+    }else if(repetir.value != null && contrasenna.value != null && contrasenna.value == repetir.value){
+        document.getElementById("contraIgual").innerHTML = "<p class='bien'>La contrase&ntilde;a es la misma</p>";
+        document.getElementById("contraIgual").style.display = 'block';
+    }
 }

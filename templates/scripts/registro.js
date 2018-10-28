@@ -27,19 +27,19 @@ function checkPasswordRequisites(password){
 
 	for (i = 0; i < password.length; i++) {
         letra = password.charAt(i);
-        valido = capital.test(letra);
+        valido = capital.includes(letra);
         if (valido) {
             capitalCount++;
         }
-        valido = number.test(letra);
+        valido = number.includes(letra);
         if (valido) {
             numberCount++;
         }
-        valido = minus.test(letra);
+        valido = minus.includes(letra);
         if (valido) {
             minusCount++;
         }
-        valido=symbol.test(letra)
+        valido=symbol.includes(letra);
         if (valido) {
             symbolCount++;
         }

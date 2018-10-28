@@ -18,7 +18,7 @@
 	<body>
 		<div id="fondoR">
 			<h1 id="tit-form">Formulario de registro</h1><br>
-			<form name="formularioReg" action="/sing_up" method="POST">
+			<form name="formularioReg" action="/sing_in" method="POST">
 				<div class="datos">
 					Datos de usuario:<br>
 						<input required class="input_text" type="text" placeholder="Nombre de usuario" name="nombre" id="nombre" onkeyup="checkUser();">
@@ -26,7 +26,7 @@
 					<div id="usuarioRes">
 					</div>
 				    <div id="divPassword">
-				        <input type="password" id="password" class="input_text password left" placeholder="Contrase&ntilde;a" />
+				        <input type="password" id="password" class="input_text password left" name="password" placeholder="Contrase&ntilde;a" />
 				        <div class="input_text password-meter left">
 				            <div class="password-strength"></div>
 				        </div>
@@ -45,7 +45,7 @@
 				</div>
 				<div class="datos" id="tarjeta">
 					Datos de la tarjeta:<br>
-					<input required class="input_text" type="text" placeholder="Tarjeta de credito" name="tarjeta" id="tarjetaValor" maxlength="16">
+					<input required class="input_text" type="text" placeholder="Tarjeta de credito" name="tarjetaValor" id="tarjetaValor" maxlength="16">
 
 				</div>
 			{% if msg %}

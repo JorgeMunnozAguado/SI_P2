@@ -60,7 +60,19 @@
     border-radius: 50%;
 }
 
-#user_info a {
+#botonLogin {
+    left: 130px;
+    bottom: 33px;
+    position: absolute;
+}
+
+#botonRegistro{
+    left: 34px;
+    bottom: 33px;
+    position: absolute;
+}
+
+#botonCerrarSesion {
     left: 123px;
     bottom: 33px;
     position: absolute;

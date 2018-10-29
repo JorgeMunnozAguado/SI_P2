@@ -4,6 +4,8 @@
 
 {% block style %}fullFilm{% endblock %}
 
+{% block script %}<script src="/scripts/cookies.js"></script>{% endblock %}
+
 {% block content %}
 <!--<a href="javascript:history.back()">Go Back</a>-->
 <div id="film">
@@ -19,10 +21,11 @@
 	<h1>{{ peliculas.titulo }}</h1>
 	<div id="state_full" class="state available" title="Costo">Desde {{ peliculas.precio }} €</div>
 	{% if user %}
-		<a class="status-basket">
-			Añadir al carrito 
-			<div><img src="/images/carrito-plus.png" alt="carrito"/></div>
+		<a class="status-basket" onclick="addToBasket(this, '{{ peliculas.titulo|safe }}', 'full')">
+			<span id="desc-basket">Añadir al carrito</span>
+			<div><img id="imagen-basket" src="/images/carrito-plus.png" alt="carrito"/></div>
 		</a>
+        
 	{% endif %}
 </div>
 

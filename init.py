@@ -87,21 +87,23 @@ def basket():
 
     if "SessionCookie" in request.cookies:
     
+        obj = json.loads(session['basket'])
+                        
+        buscar = obj["films"]
+
+        ret = searchFilms(buscar)
+    
         if 'username' in session and 'password' in session:
 
             if Users.checkUser(session['username'], session['password']):
             
                 if "basket" in session:
 
-                    obj = json.loads(session['basket'])
-                        
-                    buscar = obj["films"]
-
-                    ret = searchFilms(buscar)
-
                     return render_template("basket.html", films = ret[0], precioTotal = ret[1], user=session['username'])
 
                 return checkSession("basket.html")
+            
+        else: return render_template("basket.html", films = ret[0], precioTotal = ret[1])
     
     return redirect("/")
 

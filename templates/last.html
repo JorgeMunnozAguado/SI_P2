@@ -37,9 +37,7 @@
 			</a>
 			<div class="container">
 				<a href="/fullFilm/{{ peli.link }}"><p>{{ peli.titulo }}</p></a>
-				{% if user %}
                     <div class="add-basket" onclick="addToBasket(this, '{{ peli.titulo|safe }}', '')"><img src="images/carrito-plus.png" alt="carrito"/></div>
-                {% endif %}
 			</div>
 		</div>
 		

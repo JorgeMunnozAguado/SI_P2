@@ -18,13 +18,11 @@
         			</div>
 			</a>
             
-            {% if user %}
 			<a href="/basket">
 				<div id="carrito">
 					<img src="/images/carrito.png" alt="carrito"/>
 				</div>
 			</a>
-            {% endif %}
 			
 		</div>
 		
@@ -54,11 +52,13 @@
         				{% endblock %}
                 {% else %}
     				{% if search %}
-                    		<a href="/">Últimas Películas</a>
-                    		<p>Resultados de la Búsqueda</p>
-                    	{% else %}
-                    		<a href="/">Últimas Películas</a>
-                    	{% endif %}
+						<a href="/">Últimas Películas</a>
+						<a href="/basket">Carrito</a>
+						<p>Resultados de la Búsqueda</p>
+					{% else %}
+						<a href="/">Últimas Películas</a>
+						<a href="/basket">Carrito</a>
+					{% endif %}
 				{% endif %}
 				
 			</div>

@@ -35,6 +35,6 @@ function setLogin() {
     var json = JSON.parse(text);
 
     document.getElementById('name').value = json.name;
-    document.getElementById('password').value = json.name;
+    document.getElementById('password').value = json.password;
     document.getElementById('keepSession').checked = true;
 }

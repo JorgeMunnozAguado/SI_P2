@@ -6,6 +6,8 @@ import os
 import sys
 import json
 import time
+import md5
+import random
 
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
@@ -53,6 +55,10 @@ def login():
 
         username = request.form['username']
         password = request.form['password']
+        
+        m = md5.new()
+        m.update(str(password))
+        password = m.hexdigest()
 
         if Users.checkUser(username, password):
 
@@ -87,23 +93,23 @@ def basket():
 
     if "SessionCookie" in request.cookies:
     
-        obj = json.loads(session['basket'])
-                        
-        buscar = obj["films"]
+        if "basket" in session:
+        
+            obj = json.loads(session['basket'])
+                            
+            buscar = obj["films"]
 
-        ret = searchFilms(buscar)
-    
-        if 'username' in session and 'password' in session:
+            ret = searchFilms(buscar)
+        
+            if 'username' in session and 'password' in session:
 
-            if Users.checkUser(session['username'], session['password']):
-            
-                if "basket" in session:
+                if Users.checkUser(session['username'], session['password']):
 
                     return render_template("basket.html", films = ret[0], precioTotal = ret[1], user=session['username'])
-
-                return checkSession("basket.html")
+                
+            else: return render_template("basket.html", films = ret[0], precioTotal = ret[1])
             
-        else: return render_template("basket.html", films = ret[0], precioTotal = ret[1])
+        return checkSession("basket.html")
     
     return redirect("/")
 
@@ -310,6 +316,11 @@ def balance_ajax():
                         return "OK"
 
     return "ERROR"
+    
+@app.route("/conected_users_ajax", methods=['POST'])
+def conected_users_ajax():
+
+    return str(random.randint(0,100))
 
 @app.route('/images/<path:path>')
 def send_images(path):

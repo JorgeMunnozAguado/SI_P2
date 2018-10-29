@@ -3,6 +3,7 @@ import sys
 import json
 import time
 import datetime
+import md5
 from utilficheros import jsonAPelicula, resultadoPeliculas, searchFilms
 
 FOLDER_PATH = "users/"
@@ -27,8 +28,11 @@ class Users:
                 file = open(FOLDER_PATH + name + "/films.json", "w")
                 file.write('{"films":[]}')
                 
+                m = md5.new()
+                m.update(str(password))
+                
                 file = open(FOLDER_PATH + name + "/info.json", "w")
-                file.write('{"name":"' + str(name) + '","password":"' + str(password) + '","ccard":"' + str(ccard) + '","balance":"' + str(balance) + '","email":"' + str(email) + '"}')
+                file.write('{"name":"' + str(name) + '","password":"' + m.hexdigest() + '","ccard":"' + str(ccard) + '","balance":"' + str(balance) + '","email":"' + str(email) + '"}')
                 
                 return Users(name, password, ccard, balance, email)
                 

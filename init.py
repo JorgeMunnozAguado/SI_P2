@@ -168,24 +168,8 @@ def history():
 @app.route("/sing_in",methods=['GET','POST'])
 def registro():
     if 'tarjetaValor' in request.form:
-        if request.method == 'GET':
-            nombre=request.args.get('nombre').lower()
-            password=request.args.get('password')
-            if Users.getUserFromDB(nombre) != None:
-                return render_template("registro.html",msg="Nombre de usuario ya registrado")
-            if Users.createNewUser(request.args.get('nombre').lower(), request.args.get('password'),request.args.get('tarjetaValor'), 0,request.args.get('email')) == None:
-                return render_template("registro.html",msg="Error al crear el usuario")
-            else:
-                if Users.checkUser(nombre,password):
-                    resp = make_response(redirect("/"))
-            
-                    session['username'] = nombre
-                    session['password'] = password
-            
-                    return resp
-                else:
-                    return render_template("index.html")
-        elif request.method == 'POST':
+        
+        if request.method == 'POST':
             nombre=request.form['nombre'].lower()
             if Users.getUserFromDB(nombre) != None:
                 return render_template("registro.html",msg="Nombre de usuario ya registrado")

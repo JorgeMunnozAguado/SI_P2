@@ -25,7 +25,7 @@ class Users:
             
                 os.makedirs(FOLDER_PATH + name)
                 
-                file = open(FOLDER_PATH + name + "/films.json", "w")
+                file = open(FOLDER_PATH + name + "/history.json", "w")
                 file.write('{"films":[]}')
                 
                 m = md5.new()
@@ -81,7 +81,7 @@ class Users:
         if user is None:
             return False
             
-        file = open(FOLDER_PATH + user.name + "/films.json", "r")
+        file = open(FOLDER_PATH + user.name + "/history.json", "r")
         
         parse = json.loads(file.read())
         
@@ -115,7 +115,7 @@ class Users:
         
         parse['films'].append(purchase)
         #print >>sys.stderr, parse
-        file = open(FOLDER_PATH + user.name + "/films.json", "w")
+        file = open(FOLDER_PATH + user.name + "/history.json", "w")
         
         file.write(json.dumps(parse))
             
@@ -125,7 +125,7 @@ class Users:
     @staticmethod
     def isFilmBuy(user, film):
         
-        file = open(FOLDER_PATH + user.name + "/films.json", "r")
+        file = open(FOLDER_PATH + user.name + "/history.json", "r")
         
         parse = json.loads(file.read())
         
@@ -147,7 +147,7 @@ class Users:
         if user is None:
             return None
             
-        file = open(FOLDER_PATH + userName + "/films.json", "r")
+        file = open(FOLDER_PATH + userName + "/history.json", "r")
         
         parse = json.loads(file.read())
         

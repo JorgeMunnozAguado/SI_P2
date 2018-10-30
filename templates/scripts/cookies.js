@@ -79,6 +79,16 @@ function changeNumber(id, name) {
     
     var price_one = parseInt(elem.innerText) / parseInt(number);
     
+    if (parseInt(number) == 0) removeFromBasket(id + 'film', name, true)
+    
+    if (parseInt(number) < 0 || isNaN(number) || number.includes(".") || number.length <= 0) {
+        
+        document.getElementById(id + "input").style.border = "1px solid red";
+        return;
+    }
+    
+    document.getElementById(id + "input").style.border = "1px solid #AFAFAF";
+    
     xhttp.onreadystatechange = function() {
         
         if (this.readyState == 4 && this.status == 200) {

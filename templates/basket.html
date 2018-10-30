@@ -32,7 +32,8 @@
 		<h1>Descripción: </h1><div>{{ film.desc }}</div>
 	</div>
     </a>
-	<input type="number" id="{{ loop.index }}input" value="{{ film.number }}" class="input_text small" onfocusout="changeNumber('{{ loop.index }}', '{{ film.titulo }}')"/>
+	<input type="number" id="{{ loop.index }}input" value="{{ film.number }}" class="input_text small"/>
+	<a class="okey" onclick="changeNumber('{{ loop.index }}', '{{ film.titulo }}')">OK</a>
 	<div class="delete available" title="Costo" onclick="removeFromBasket('{{loop.index}}film', '{{ film.titulo }}', true)">Eliminar</div>
 	<p class="price" id="{{ loop.index }}price">{{ film.precio }} €</p>
 </div>
@@ -41,6 +42,8 @@
 
 {% if user %}
 <a href="/pay" class="buy bought">Tramitar Compra</a>
+{% else %}
+<a href="/login" class="buy bought">Identifiquese</a>
 {% endif %}
 
 {% else %}

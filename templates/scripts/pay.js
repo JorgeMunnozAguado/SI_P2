@@ -14,12 +14,12 @@ function addBalance() {
                 
                 log.classList.add("okey");
                 log.style.display = "block";
-                log.innerHTML = "Saldo actualizado";
+                document.getElementById("log_p").innerHTML = "Saldo actualizado";
                 
             } else if (this.responseText == "ERROR") {
                 
                 log.classList.remove('okey');
-                log.innerHTML = "Saldo incorrecto";
+                document.getElementById("log_p").innerHTML = "Saldo incorrecto";
             }
         }
     };

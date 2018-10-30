@@ -108,8 +108,8 @@ def basket():
                     return render_template("basket.html", films = ret[0], precioTotal = ret[1], user=session['username'])
                 
             else: return render_template("basket.html", films = ret[0], precioTotal = ret[1])
-            
-        return checkSession("basket.html")
+        
+        return render_template("basket.html")
     
     return redirect("/")
 

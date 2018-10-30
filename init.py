@@ -174,9 +174,12 @@ def registro():
             if Users.getUserFromDB(nombre) != None:
                 return render_template("registro.html",msg="Nombre de usuario ya registrado")
             password=request.form['password']
-            if Users.createNewUser(request.form['nombre'].lower(), request.form['password'], request.form['tarjetaValor'], 0, request.form['email']) == None:
+            if Users.createNewUser(request.form['nombre'].lower(), request.form['password'], request.form['tarjetaValor'], str(random.randint(0,100)), request.form['email']) == None:
                 return render_template("registro.html",msg="Error al crear el usuario")
             else:
+                m = md5.new()
+                m.update(str(password))
+                password = m.hexdigest()
                 if Users.checkUser(nombre,password):
                     resp = make_response(redirect("/"))
             

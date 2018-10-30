@@ -89,3 +89,31 @@ def crearDatosUsuario(user_url,dict_res):
 		return True
 	else:
 		return False
+
+def peliculaEnCarrito(buscar):
+
+    films = {}
+    count = 0
+    precio = 0
+
+    json_url = os.path.join(SITE_ROOT, "data", "catalogo.json")
+    pelis = jsonAPelicula(json_url)
+
+    for peli in pelis:
+        for busco in buscar:
+            if peli.titulo == busco["name"]:
+                pelicula=Pelicula(peli.titulo,peli.precio,peli.poster,peli.imgfondo,peli.director,peli.estreno,peli.desc,peli.link)
+                films[pelicula]="True"
+    '''for peli in pelis:
+        if peli not in films.keys():
+            films[peli]="False"'''
+
+    for peli in pelis:
+        esta=0
+        for key,value in films.items():
+            if key.titulo == peli.titulo:
+                esta=1
+        if esta == 0:
+            films[peli]="False"
+
+    return films

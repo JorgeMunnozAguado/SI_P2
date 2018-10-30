@@ -1,6 +1,6 @@
 from flask import Flask, session, render_template, send_from_directory, request, redirect, make_response
 from pelicula import Pelicula
-from utilficheros import jsonAPelicula, resultadoPeliculas, searchFilms
+from utilficheros import jsonAPelicula, resultadoPeliculas, searchFilms, peliculaEnCarrito
 from users import Users
 import os
 import sys
@@ -348,24 +348,48 @@ def checkSession(url):
 
 
 def checkSessionPelis(url, peliculas,search):
-
+    ret={}
+    dict_aux={}
     if "SessionCookie" in request.cookies:
+        if "basket" in session:
+        
+            obj = json.loads(session['basket'])
+                            
+            buscar = obj["films"]
+
+            dict_aux = peliculaEnCarrito(buscar)
+            for resultado in peliculas:
+                for peli,value in dict_aux.items():
+                    if peli.titulo == resultado.titulo:
+                        ret[peli]=value
     
         if 'username' in session and 'password' in session:
 
             if Users.checkUser(session['username'], session['password']):
-            
-                if search == False:
-                    return render_template(url, peliculas=peliculas, user=session['username'])
+                if len(ret) != 0:  
+                    if search == False:
+                        return render_template(url, dict_peliculas=ret, user=session['username'])
                     
+                    else:
+                        return render_template(url, dict_peliculas=ret, user=session['username'], search=True)
                 else:
-                    return render_template(url, peliculas=peliculas, user=session['username'], search=True)
-                
-    if search == False:
-        return render_template(url, peliculas=peliculas)
+                    if search == False:
+                        return render_template(url, peliculas=peliculas, user=session['username'])
+                    else:
+                        return render_template(url, peliculas=peliculas, user=session['username'], search=True)
+    if len(ret) != 0:            
+        if search == False:
+            return render_template(url,dict_peliculas=ret)
         
+        else:
+            return render_template(url,dict_peliculas=ret,    search=True)
     else:
-        return render_template(url, peliculas=peliculas,    search=True)
+        if search == False:
+            return render_template(url,peliculas=peliculas)
+        
+        else:
+            return render_template(url, peliculas=peliculas,    search=True)
+
 
 if __name__ == "__main__":
     app.run()

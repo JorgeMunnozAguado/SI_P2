@@ -24,7 +24,7 @@ function addBalance() {
         }
     };
     
-    xhttp.open("POST", "balance_ajax", true);
+    xhttp.open("POST", "/server.wsgi/balance_ajax", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send('balance=' + balance.value);    
 }

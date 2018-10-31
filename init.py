@@ -48,7 +48,7 @@ def login():
         if 'username' in session and 'password' in session:
 
             if Users.checkUser(session['username'], session['password']):
-                return redirect("/")
+                return redirect("/server.wsgi/")
                 
 
     if request.method == 'POST':
@@ -62,7 +62,7 @@ def login():
 
         if Users.checkUser(username, password):
 
-            resp = make_response(redirect("/"))
+            resp = make_response(redirect("/server.wsgi/"))
             
             session['username'] = username
             session['password'] = password
@@ -85,7 +85,7 @@ def fullFilm(name):
         if name == peli.link:
             return checkSessionPelis("fullFilm.html", peli,False)
             
-    return redirect('/')
+    return redirect('/server.wsgi/')
 
 
 @app.route("/basket")
@@ -111,7 +111,7 @@ def basket():
         
         return render_template("basket.html")
     
-    return redirect("/")
+    return redirect("/server.wsgi")
 
 
 @app.route("/pay", methods=['POST','GET'])
@@ -148,7 +148,7 @@ def pay():
         
             return render_template("pay.html")
             
-    return redirect("/")
+    return redirect("/server.wsgi/")
     
 
 @app.route("/history")
@@ -162,7 +162,7 @@ def history():
             
                 return render_template("history.html", peliculas=Users.listUserFilms(session['username']), user=session['username'])
     
-    return redirect("/")
+    return redirect("/server.wsgi/")
 
 
 @app.route("/sing_in",methods=['GET','POST'])
@@ -181,10 +181,7 @@ def registro():
                 m.update(str(password))
                 password = m.hexdigest()
                 if Users.checkUser(nombre,password):
-                    resp = make_response(redirect("/"))
-            
-                    session['username'] = nombre
-                    session['password'] = password
+                    resp = make_response(redirect("/server.wsgi/"))
             
                     return resp
                 else:
@@ -219,7 +216,7 @@ def search():
 
         return checkSessionPelis("last.html",peliculas=resultadoPeliculas(search,tipo,pelis), search=True)
     else:
-        return redirect(url_forurl_for('/'))
+        return redirect(url_for('/'))
 
 @app.route("/close")
 def closeSession():
@@ -228,7 +225,7 @@ def closeSession():
 
         session.clear()
 
-    return redirect("/")
+    return redirect("/server.wsgi/")
 
 
 @app.route("/ajax_url", methods=['POST'])
@@ -309,18 +306,19 @@ def conected_users_ajax():
 
     return str(random.randint(0,100))
 
+'''
 @app.route('/images/<path:path>')
 def send_images(path):
-    return send_from_directory('static/images', path)
+    return send_from_directory('/static/images', path)
 
-@app.route('/styles/<path:path>')
+@app.route('styles/<path:path>')
 def send_styles(path):
-    return send_from_directory('templates/styles', path)
+    return send_from_directory('/templates/styles', path)
 
 @app.route('/scripts/<path:path>')
 def send_scripts(path):
-    return send_from_directory('templates/scripts', path)
-
+    return send_from_directory('/templates/scripts', path)
+'''
 
 def checkSession(url):
 
@@ -331,7 +329,7 @@ def checkSession(url):
             if Users.checkUser(session['username'], session['password']):
                 return render_template(url, user=session['username'])
                 
-    return redirect("/")
+    return redirect("/server.wsgi/")
 
 
 def checkSessionPelis(url, peliculas,search):
@@ -379,5 +377,5 @@ def checkSessionPelis(url, peliculas,search):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0', port=5001, debug=True)
 

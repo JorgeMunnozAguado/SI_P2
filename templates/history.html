@@ -4,12 +4,12 @@
 
 {% block style %}history{% endblock %}
 
-{% block script %}<script src="scripts/history.js"></script>{% endblock %}
+{% block script %}<script src="/templates/scripts/history.js"></script>{% endblock %}
 
 {% block menu %}
-<a href="/">Últimas Películas</a>
+<a href="/server.wsgi/">Últimas Películas</a>
 <p>Historial de Compra</p>
-<a href="basket">Carrito</a>
+<a href="/server.wsgi/basket">Carrito</a>
 {% endblock %}
 
 {% block content %}

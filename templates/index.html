@@ -4,12 +4,12 @@
 	<head>
         <title>Nitflix</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-		<link rel="shortcut icon" href="images/logotipo-aux.png" type="image/x-icon">
-		<link rel="stylesheet" type="text/css" href="styles/index.css">
-		<link rel="stylesheet" type="text/css" href="styles/general.css">
-		<script src="scripts/check.js"></script>
-		<script src="scripts/login.js"></script>
-		<script src="scripts/cookies.js"></script>
+		<link rel="shortcut icon" href="/static/images/logotipo-aux.png" type="image/x-icon">
+		<link rel="stylesheet" type="text/css" href="/templates/styles/index.css">
+		<link rel="stylesheet" type="text/css" href="/templates/styles/general.css">
+		<script src="/templates/scripts/check.js"></script>
+		<script src="/templates/scripts/login.js"></script>
+		<script src="/templates/scripts/cookies.js"></script>
 	</head>
 	<body onload="setLogin()">
     
@@ -17,11 +17,11 @@
     
 		<div id="login">
         
-            <img id="img_log" src="images/logotipo-aux.png" alt="logo-grande"/>
+            <img id="img_log" src="/static/images/logotipo-aux.png" alt="logo-grande"/>
         
 			<div id="login_ent">
 				
-				<form action="/login" method="POST" onsubmit="return check()">
+				<form action="/server.wsgi/login" method="POST" onsubmit="return check()">
 					<div class="input_mark">
 						<input {% block classN %}class="input_text"{% endblock %} type="text" placeholder="Usuario" name="username" id="name">
 					</div><br>
@@ -34,7 +34,7 @@
 					<input class="button" type="submit" value="Entrar">
 				</form> 
 			</div>
-			<a id="registro" href="sing_in">Registrarme</a>
+			<a id="registro" href="/server.wsgi/sing_in">Registrarme</a>
 		</div>
 		
 		 

@@ -12,7 +12,7 @@ function conected() {
         }
     };
     
-    xhttp.open("POST", "/conected_users_ajax", true);
+    xhttp.open("POST", "/server.wsgi/conected_users_ajax", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send();    
 }

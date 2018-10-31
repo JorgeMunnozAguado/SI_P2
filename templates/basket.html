@@ -4,11 +4,11 @@
 
 {% block style %}basket{% endblock %}
 
-{% block script %}<script src="scripts/cookies.js"></script>{% endblock %}
+{% block script %}<script src="/templates/scripts/cookies.js"></script>{% endblock %}
 
 {% block menu %}
-<a href="/">Últimas Películas</a>
-<a href="history">Historial de Compra</a>
+<a href="/server.wsgi/">Últimas Películas</a>
+<a href="/server.wsgi/history">Historial de Compra</a>
 <p>Carrito</p>
 {% endblock %}
 
@@ -23,7 +23,7 @@
 
 
 <div class="film" id="{{ loop.index }}film">
-    <a  href="fullFilm/{{ film.link }}">
+    <a  href="/server.wsgi/fullFilm/{{ film.link }}">
 	<div class="film_image">
 		<img src="{{ film.poster }}" alt="SW-8"/>
 	</div>
@@ -41,9 +41,9 @@
 {% endfor %}
 
 {% if user %}
-<a href="/pay" class="buy bought">Tramitar Compra</a>
+<a href="/server.wsgi/pay" class="buy bought">Tramitar Compra</a>
 {% else %}
-<a href="/login" class="buy bought">Identifiquese</a>
+<a href="/server.wsgi/login" class="buy bought">Identifiquese</a>
 {% endif %}
 
 {% else %}

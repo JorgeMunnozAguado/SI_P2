@@ -154,15 +154,6 @@ function checkForm(){
 		height_str=height.toString();
 		document.getElementById('errorJavascript').style.height=height_str.concat("px");
 	}
-	/*if(tarjeta.value. == true){
-		fallo=1;
-		document.getElementById('errorJavascript').innerHTML=document.getElementById('errorJavascript').innerHTML.concat("<br><p>La tarjeta debe tener solo numeros</p>");
-		document.getElementById('errorJavascript').style.display='block';
-		height=parseInt(document.getElementById('errorJavascript').style.height);
-		height=height+60;
-		height_str=height.toString();
-		document.getElementById('errorJavascript').style.height=height_str.concat("px");
-	}*/
 	
 	if(email.value.includes('@') == false){
 		fallo=1;
@@ -194,7 +185,7 @@ function checkUser(){
 			document.getElementById("usuarioRes").style.display = 'block';
 		}
 	}
-	var dir = "/compr_usuario/".concat(document.getElementById('nombre').value.toLowerCase());
+	var dir = "/server.wsgi/compr_usuario/".concat(document.getElementById('nombre').value.toLowerCase());
 	xhttp.open("GET",dir,true);
 	xhttp.send();
 }

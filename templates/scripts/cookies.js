@@ -12,18 +12,18 @@ function addToBasket(id, name, aux) {
               
                 document.getElementById("desc-basket").innerHTML = "Eliminar del carrito";
                 id.onclick = function(){ removeFromBasket(this, name, "full") }
-                document.getElementById("imagen-basket").src = '/images/carrito-less.png';
+                document.getElementById("imagen-basket").src = '/static/images/carrito-less.png';
                 
             } else {
                 
                 id.classList.add('basket-get');
                 id.onclick = function(){ removeFromBasket(this, name, false) }
-                id.childNodes[0].src = '/images/carrito-less.png';
+                id.childNodes[0].src = '/static/images/carrito-less.png';
             }
         }
     };
     
-    xhttp.open("POST", "/ajax_url", true);
+    xhttp.open("POST", "/server.wsgi/ajax_url", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send('type=add&name=' + name);    
 }
@@ -39,13 +39,13 @@ function removeFromBasket(id, name, aux) {
             
                 document.getElementById("desc-basket").innerHTML = "Añadir al carrito";
                 id.onclick = function(){ addToBasket(this, name, "full") }
-                document.getElementById("imagen-basket").src = '/images/carrito-plus.png';
+                document.getElementById("imagen-basket").src = '/static/images/carrito-plus.png';
                 
             } else if (aux == false) {
         
                 id.classList.remove('basket-get');
                 id.onclick = function(){ addToBasket(this, name, "") }
-                id.childNodes[0].src = '/images/carrito-plus.png';
+                id.childNodes[0].src = '/static/images/carrito-plus.png';
                 
             } else if (aux == true) {
                 
@@ -65,7 +65,7 @@ function removeFromBasket(id, name, aux) {
         }
     };
     
-    xhttp.open("POST", "/ajax_url", true);
+    xhttp.open("POST", "/server.wsgi/ajax_url", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send('type=remove&name=' + name);  
 }
@@ -100,7 +100,7 @@ function changeNumber(id, name) {
         }
     };
     
-    xhttp.open("POST", "/ajax_url", true);
+    xhttp.open("POST", "/server.wsgi/ajax_url", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send('type=number&name=' + name + '&number=' + number);    
 }

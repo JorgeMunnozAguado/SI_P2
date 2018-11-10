@@ -1,14 +1,15 @@
 {% extends "style.html" %}
 
 {% block title %}Carrito{% endblock %}
+{% block style %}
+		<link rel="stylesheet" href="{{ url_for('styles', filename='basket.css') }}">
+{% endblock %}
 
-{% block style %}basket{% endblock %}
-
-{% block script %}<script src="scripts/cookies.js"></script>{% endblock %}
+{% block script %}<script src="{{ url_for('scripts', filename='cookies.js') }}"></script>{% endblock %}
 
 {% block menu %}
-<a href="/">Últimas Películas</a>
-<a href="history">Historial de Compra</a>
+<a href="{{ url_for('index') }}">Últimas Películas</a>
+<a href="{{ url_for('history') }}">Historial de Compra</a>
 <p>Carrito</p>
 {% endblock %}
 
@@ -23,9 +24,9 @@
 
 
 <div class="film" id="{{ loop.index }}film">
-    <a  href="fullFilm/{{ film.link }}">
+    <a  href="{{ url_for('fullFilm', name=film.link) }}">
 	<div class="film_image">
-		<img src="{{ film.poster }}" alt="SW-8"/>
+		<img src="{{ url_for('images', filename=film.poster) }}" alt="SW-8"/>
 	</div>
 	<div class="container">
 		<p>{{ film.titulo }}</p>
@@ -41,9 +42,9 @@
 {% endfor %}
 
 {% if user %}
-<a href="/pay" class="buy bought">Tramitar Compra</a>
+<a href="{{ url_for('pay') }}" class="buy bought">Tramitar Compra</a>
 {% else %}
-<a href="/login" class="buy bought">Identifiquese</a>
+<a href="{{ url_for('login') }}" class="buy bought">Identifiquese</a>
 {% endif %}
 
 {% else %}

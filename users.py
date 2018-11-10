@@ -6,7 +6,6 @@ import datetime
 import md5
 from utilficheros import jsonAPelicula, resultadoPeliculas, searchFilms
 
-FOLDER_PATH = "users/"
 
 class Users:
 
@@ -19,19 +18,19 @@ class Users:
         self.email = email
 
     @staticmethod
-    def createNewUser(name, password, ccard, balance, email):
+    def createNewUser(name, password, ccard, balance, email,rootpath):
         
-            if not os.path.exists(FOLDER_PATH + name):
+            if not os.path.exists(os.path.join(rootpath,name)):
             
-                os.makedirs(FOLDER_PATH + name)
+                os.makedirs(os.path.join(rootpath,name))
                 
-                file = open(FOLDER_PATH + name + "/history.json", "w")
+                file = open(os.path.join(rootpath,name+"/history.json"), "w")
                 file.write('{"films":[]}')
                 
                 m = md5.new()
                 m.update(str(password))
                 
-                file = open(FOLDER_PATH + name + "/info.json", "w")
+                file = open(os.path.join(rootpath,name+"/info.json"), "w")
                 file.write('{"name":"' + str(name) + '","password":"' + m.hexdigest() + '","ccard":"' + str(ccard) + '","balance":"' + str(balance) + '","email":"' + str(email) + '"}')
                 
                 return Users(name, password, ccard, balance, email)
@@ -39,11 +38,11 @@ class Users:
             else: return None
             
     @staticmethod
-    def updateUser(user):
+    def updateUser(user,rootpath):
         
-            if os.path.exists(FOLDER_PATH + user.name):
+            if os.path.exists(os.path.join(rootpath,user.name)):
                 
-                file = open(FOLDER_PATH + user.name + "/info.json", "w")
+                file = open(os.path.join(rootpath,user.name+"/info.json"), "w")
                 file.write('{"name":"' + user.name + '","password":"' + user.password + '","ccard":"' + user.ccard + '","balance":"' + user.balance + '","email":"' + user.email + '"}')
                 
                 return user
@@ -51,21 +50,21 @@ class Users:
             else: return None
             
     @staticmethod
-    def getUserFromDB(name):
+    def getUserFromDB(name,rootpath):
 
-        if not os.path.exists(FOLDER_PATH + name):
+        if not os.path.exists(os.path.join(rootpath,name)):
             return None            
         
-        file = open(FOLDER_PATH + name + "/info.json", "r")
+        file = open(os.path.join(rootpath,name + "/info.json"), "r")
         
         parse = json.loads(file.read())
         
         return Users(parse['name'], parse['password'], parse['ccard'], parse['balance'], parse['email'])
         
     @staticmethod
-    def checkUser(name, password):
+    def checkUser(name, password,rootpath):
 
-        user = Users.getUserFromDB(name)
+        user = Users.getUserFromDB(name,rootpath)
         
         if not (user is None):
             
@@ -76,19 +75,19 @@ class Users:
         
         
     @staticmethod
-    def buyFilm(user, basket):
+    def buyFilm(user, basket,rootpath,site_root):
         
         if user is None:
             return False
             
-        file = open(FOLDER_PATH + user.name + "/history.json", "r")
+        file = open(os.path.join(rootpath,user.name + "/history.json"), "r")
         
         parse = json.loads(file.read())
         
         obj = json.loads(basket)
         buscar = obj["films"]
         
-        films = searchFilms(buscar)
+        films = searchFilms(buscar,site_root)
         f = []
         
         if films[1] > user.balance:
@@ -99,7 +98,7 @@ class Users:
         
         user.balance = str(float(user.balance) - float(films[1])) 
         
-        Users.updateUser(user)
+        Users.updateUser(user,rootpath)
         
         for film in films[0]:
         
@@ -115,7 +114,7 @@ class Users:
         
         parse['films'].append(purchase)
         #print >>sys.stderr, parse
-        file = open(FOLDER_PATH + user.name + "/history.json", "w")
+        file = open(os.path.join(rootpath,user.name + "/history.json"), "w")
         
         file.write(json.dumps(parse))
             
@@ -123,9 +122,9 @@ class Users:
         
     
     @staticmethod
-    def isFilmBuy(user, film):
+    def isFilmBuy(user, film,rootpath):
         
-        file = open(FOLDER_PATH + user.name + "/history.json", "r")
+        file = open(os.path.join(rootpath,user.name + "/history.json"), "r")
         
         parse = json.loads(file.read())
         
@@ -140,14 +139,14 @@ class Users:
         
     
     @staticmethod
-    def listUserFilms(userName):
+    def listUserFilms(userName,rootpath):
 
-        user = Users.getUserFromDB(userName)
+        user = Users.getUserFromDB(userName,rootpath)
         
         if user is None:
             return None
             
-        file = open(FOLDER_PATH + userName + "/history.json", "r")
+        file = open(os.path.join(rootpath,userName + "/history.json"), "r")
         
         parse = json.loads(file.read())
         

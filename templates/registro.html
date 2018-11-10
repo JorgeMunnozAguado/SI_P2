@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
 	<head>
-		<link rel="shortcut icon" href="images/logotipo-aux.png" type="image/x-icon">
-		<link rel="stylesheet" type="text/css" href="styles/registro.css">
-		<link rel="stylesheet" type="text/css" href="styles/general.css">
+		<link rel="shortcut icon" href="{{ url_for('images', filename='logotipo-aux.png') }}" type="image/x-icon">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('styles', filename='registro.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('styles', filename='general.css') }}">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script src="scripts/registro.js"></script>
+		<script src="{{ url_for('scripts', filename='registro.js') }}"></script>
 	    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-	    <link href="styles/main.css" rel="stylesheet" />
+	    <link href="{{ url_for('styles', filename='main.css') }}" rel="stylesheet" />
 	    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
 	    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 	    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	    <script src="scripts/password-meter.js"></script>
+	    <script src="{{ url_for('scripts', filename='password-meter.js') }}"></script>
 		<title>Nitflix: Registro</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	</head>
 	<body>
 		<div id="fondoR">
 			<h1 id="tit-form">Formulario de registro</h1><br>
-			<form name="formularioReg" action="/sing_in" method="POST">
+			<form name="formularioReg" action="{{ url_for('sing_in') }}" method="POST">
 				<div class="datos">
 					Datos de usuario:<br>
 						<input required class="input_text" type="text" placeholder="Nombre de usuario" name="nombre" id="nombre" onkeyup="checkUser();">

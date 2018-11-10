@@ -2,14 +2,16 @@
 
 {% block title %}Historial de Compra{% endblock %}
 
-{% block style %}history{% endblock %}
+{% block style %}
+		<link rel="stylesheet" href="{{ url_for('styles', filename='history.css') }}">
+{% endblock %}
 
-{% block script %}<script src="scripts/history.js"></script>{% endblock %}
+{% block script %}<script src="{{ url_for('scripts', filename='history.js') }}"></script>{% endblock %}
 
 {% block menu %}
-<a href="/">Últimas Películas</a>
+<a href="{{ url_for('index') }}">Últimas Películas</a>
 <p>Historial de Compra</p>
-<a href="basket">Carrito</a>
+<a href="{{ url_for('basket') }}">Carrito</a>
 {% endblock %}
 
 {% block content %}

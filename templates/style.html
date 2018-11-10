@@ -2,26 +2,26 @@
 <html>
 	<head>
 		<title>{% block title %}{% endblock %}</title>
+		{% block style %}{% endblock %}
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-		<link rel="stylesheet" href="/styles/{% block style %}{% endblock %}.css">
-		<link rel="stylesheet" href="/styles/general.css">
-		<link rel="stylesheet" href="/styles/styles.css">
-		<link rel="shortcut icon" href="/images/logotipo-aux.png" type="/image/x-icon">
-        <script src="/scripts/style.js"></script>
+		<link rel="stylesheet" href="{{ url_for('styles', filename='general.css') }}">
+		<link rel="stylesheet" href="{{ url_for('styles', filename='styles.css') }}">
+		<link rel="shortcut icon" href="{{ url_for('images', filename='logotipo-aux.png') }}" type="/image/x-icon">
+        <script src="{{ url_for('scripts', filename='style.js') }}"></script>
         {% block script %}{% endblock %}
 	</head>
 	<body>
 		<div id="header">
 		
-            <a href="/">
+            <a href="{{ url_for('index') }}">
         			<div id="logo">
-        				<img src="/images/logotipo.png" alt="logo"/>
+        				<img src="{{ url_for('images', filename='logotipo.png') }}" alt="logo"/>
         			</div>
 			</a>
             
-			<a href="/basket">
+			<a href="{{ url_for('basket') }}">
 				<div id="carrito">
-					<img src="/images/carrito.png" alt="carrito"/>
+					<img src="{{ url_for('images', filename='carrito.png') }}" alt="carrito"/>
 				</div>
 			</a>
 			
@@ -32,13 +32,13 @@
 			<div id="user_info">
 			
 				{% if user %}
-				<img src="/images/imagen.jpg" alt="foto-perfil"/>
+				<img src="{{ url_for('images', filename='imagen.jpg') }}" alt="foto-perfil"/>
 				<h1>{{ user }}</h1>
-				<a href="/close" id="botonCerrarSesion">Cerrar Sesión</a>
+				<a href="{{ url_for('close') }}" id="botonCerrarSesion">Cerrar Sesión</a>
 				{% else %}
 				<h1>Usuario no identificado</h1>
-				<a href="/login" id="botonLogin">Identifiquese</a><br>
-				<a href="/sing_in" id="botonRegistro">Registrarse</a>
+				<a href="{{ url_for('login') }}" id="botonLogin">Identifiquese</a><br>
+				<a href="{{ url_for('sing_in') }}" id="botonRegistro">Registrarse</a>
 				{% endif %}
 			
                 <div id="conec_u">Usuarios conectados: <span id="conected_users">4</span></div>
@@ -49,18 +49,18 @@
 				
                 {% if user %}
         				{% block menu %}
-        				<a href="/">Últimas Películas</a>
-        				<a href="/history">Historial de Compra</a>
-        				<a href="/basket">Carrito</a>
+        				<a href="{{ url_for('index') }}">Últimas Películas</a>
+        				<a href="{{ url_for('history') }}">Historial de Compra</a>
+        				<a href="{{ url_for('basket') }}">Carrito</a>
         				{% endblock %}
                 {% else %}
     				{% if search %}
-						<a href="/">Últimas Películas</a>
-						<a href="/basket">Carrito</a>
+						<a href="{{ url_for('index') }}">Últimas Películas</a>
+						<a href="{{ url_for('basket') }}">Carrito</a>
 						<p>Resultados de la Búsqueda</p>
 					{% else %}
-						<a href="/">Últimas Películas</a>
-						<a href="/basket">Carrito</a>
+						<a href="{{ url_for('index') }}">Últimas Películas</a>
+						<a href="{{ url_for('basket') }}">Carrito</a>
 					{% endif %}
 				{% endif %}
 				

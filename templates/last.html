@@ -2,20 +2,22 @@
 
 {% block title %}{% if search %}Resultados de la Busqueda{% else %}Últimas Películas{% endif %}{% endblock %}
 
-{% block style %}last{% endblock %}
+{% block style %}
+		<link rel="stylesheet" href="{{ url_for('styles', filename='last.css') }}">
+{% endblock %}
 
-{% block script %}<script src="/scripts/cookies.js"></script>{% endblock %}
+{% block script %}<script src="{{ url_for('scripts', filename='cookies.js') }}"></script>{% endblock %}
 
 {% block menu %}
 	{% if search %}
-		<a href="/">Últimas Películas</a>
-		<a href="/history">Historial de Compra</a>
-		<a href="/basket">Carrito</a>
+		<a href="{{ url_for('index') }}">Últimas Películas</a>
+		<a href="{{ url_for('history') }}">Historial de Compra</a>
+		<a href="{{ url_for('basket') }}">Carrito</a>
 		<p>Resultados de la Búsqueda</p>
 	{% else %}
 		<p>Últimas Películas</p>
-		<a href="/history">Historial de Compra</a>
-		<a href="/basket">Carrito</a>
+		<a href="{{ url_for('history') }}">Historial de Compra</a>
+		<a href="{{ url_for('basket') }}">Carrito</a>
 	{% endif %}
 {% endblock %}
 
@@ -30,18 +32,18 @@
 	{% for peli,carrito in dict_peliculas.iteritems() %}
 		
 		<div class="film">
-			<a href="/fullFilm/{{ peli.link }}">
+			<a href="{{ url_for('fullFilm', name=peli.link) }}">
 			<div class="film_image">
 				<div class="state available" title="Costo">Desde {{ peli.precio }} €</div>
-				<img src="{{ peli.poster }}" alt="{{ peli.poster }}"/>
+				<img src="{{ url_for('images', filename=peli.poster) }}"  alt="{{ peli.poster }}"/>
 			</div>
 			</a>
 			<div class="container">
-				<a href="/fullFilm/{{ peli.link }}"><p>{{ peli.titulo }}</p></a>
+				<a href="{{ url_for('fullFilm', name=peli.link) }}"><p>{{ peli.titulo }}</p></a>
 					{% if carrito != verdadero %}
-	                    <div class="add-basket" onclick="addToBasket(this, '{{ peli.titulo|safe }}', '')"><img src="images/carrito-plus.png" alt="carrito"/></div>
+	                    <div class="add-basket" onclick="addToBasket(this, '{{ peli.titulo|safe }}', '')"><img src="{{ url_for('images', filename='carrito-plus.png') }}" alt="carrito"/></div>
 					{% else %}
-						<div class="add-basket basket-get" onclick="removeFromBasket(this, '{{ peli.titulo|safe }}', '')"><img src="/images/carrito-less.png" alt="carrito"></div>
+						<div class="add-basket basket-get" onclick="removeFromBasket(this, '{{ peli.titulo|safe }}', '')"><img src="{{ url_for('images', filename='carrito-less.png') }}" alt="carrito"></div>
 					{% endif %}
 			</div>
 		</div>
@@ -51,15 +53,15 @@
 	{% for peli in peliculas %}
 		
 		<div class="film">
-			<a href="/fullFilm/{{ peli.link }}">
+			<a href="{{ url_for('fullFilm', name=peli.link) }}">
 			<div class="film_image">
 				<div class="state available" title="Costo">Desde {{ peli.precio }} €</div>
-				<img src="{{ peli.poster }}" alt="{{ peli.poster }}"/>
+				<img src="{{ url_for('images', filename=peli.poster) }}" alt="{{ peli.poster }}"/>
 			</div>
 			</a>
 			<div class="container">
-				<a href="/fullFilm/{{ peli.link }}"><p>{{ peli.titulo }}</p></a>
-	                    <div class="add-basket" onclick="addToBasket(this, '{{ peli.titulo|safe }}', '')"><img src="images/carrito-plus.png" alt="carrito"/></div>
+				<a href="{{ url_for('fullFilm', name=peli.link) }}"><p>{{ peli.titulo }}</p></a>
+	                    <div class="add-basket" onclick="addToBasket(this, '{{ peli.titulo|safe }}', '')"><img src="{{ url_for('images', filename='carrito-plus.png') }}" alt="carrito"/></div>
 			</div>
 		</div>
 		

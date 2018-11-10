@@ -1,0 +1,105 @@
+
+#body {
+    padding-right: 0 !important;
+}
+
+#screen_shot {
+    width: 100%;
+    position: relative;
+    height: 450px;
+    overflow: hidden;
+    box-shadow: 0 -6px 13px #c0bfbf inset;
+}
+
+hr {
+    position: absolute;
+    top: 442px;
+    width: 100%;
+    box-shadow: 0 -3px 20px #000000;
+}
+
+#screen_shot img {
+    width: 100%;
+}
+
+#cover {
+    padding: 2px;
+    border: 2px solid #C1563F;
+    width: 260px;
+    height: 350px;
+    overflow: hidden;
+    position: absolute;
+    top: 250px;
+    left: 430px;
+}
+
+#cover img {
+    width: 100%;
+}
+
+#film {
+    overflow: auto;
+}
+
+#film h1 {
+    float: left;
+    margin-left: 400px;
+    width: max-content;
+}
+
+#state_full {
+    float: left;
+    right: auto;
+    position: unset;
+    margin-top: 30px;
+}
+
+.status-basket {
+    position: absolute;
+    right: 36px;
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+    border: 1px solid #919191;
+    border-bottom: 0 solid;
+    margin-top: -40px;
+    transition: 0.2s;
+    background: #F8F8F8;
+    color: #000;
+    cursor: pointer;
+}
+
+.status-basket:hover {
+    padding-bottom: 20px;
+    margin-top: -50px;
+    color: #534c4c;
+}
+
+.status-basket div {
+    float: right;
+    margin: -5px -4px -10px 10px;
+}
+
+.status-basket img {
+    width: 30px;
+}
+
+#description {
+    margin-top: 50px;
+    padding: 10px;
+}
+
+#description div {
+    overflow: auto;
+    margin-bottom: 10px;
+}
+
+#description h1, #description p {
+    margin: 0;
+    float: left;
+}
+
+#description h1 {
+    width: max-content;
+    font-size: 18px;
+    margin-right: 10px;
+}

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 	<head>
-		<link rel="shortcut icon" href="images/logotipo-aux.png" type="image/x-icon">
-		<link rel="stylesheet" type="text/css" href="/styles/pay.css">
-		<link rel="stylesheet" type="text/css" href="/styles/general.css">
-		<script src="/scripts/pay.js"></script>
+		<link rel="shortcut icon" href="{{ url_for('images', filename='logotipo-aux.png') }}" type="image/x-icon">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('styles', filename='pay.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('styles', filename='general.css') }}">
+		<script src="{{ url_for('scripts', filename='pay.js') }}"></script>
 		<title>Nitflix: Tramitar compra</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	</head>
@@ -16,7 +16,7 @@
 		
             <h1>Tramitar Compra</h1>
             <div id="user">
-                <img src="/images/imagen.jpg" alt="Foto perfil" id="user_logo"/>
+                <img src="{{ url_for('images', filename='imagen.jpg') }}" alt="Foto perfil" id="user_logo"/>
     			<h1>{{ user.name }}</h1>
             </div>
             <hr>
@@ -25,10 +25,10 @@
             <hr>
 			<p><strong>Saldo:</strong> <span> €</span><input type="number" value="{{ user.balance }}" id="balance" onfocus="document.getElementById('saldo_send').style.display = 'block';"/><a id="saldo_send" onclick="addBalance()">OK</a></p>
             <p><strong>Precio Total:</strong> <span>{{ price }} €</span></p>
-            <form name="pay" action="/pay" method="post">
+            <form name="pay" action="{{ url_for('pay') }}" method="post">
                 <button class="submit">Pagar</button>
             </form>
-            <a href="/basket" class="submit cancel">Cancelar</a>
+            <a href="{{ url_for('basket') }}" class="submit cancel">Cancelar</a>
             
         </div>
 	</body>

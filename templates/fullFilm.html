@@ -2,9 +2,11 @@
 
 {% block title %}{{peliculas.titulo}}{% endblock %}
 
-{% block style %}fullFilm{% endblock %}
+{% block style %}
+		<link rel="stylesheet" href="{{ url_for('styles', filename='fullFilm.css') }}">
+{% endblock %}
 
-{% block script %}<script src="/scripts/cookies.js"></script>{% endblock %}
+{% block script %}<script src="{{ url_for('scripts', filename='cookies.js') }}"></script>{% endblock %}
 
 {% block content %}
 <!--<a href="javascript:history.back()">Go Back</a>-->
@@ -12,18 +14,18 @@
 
 	<div id="screen_shot">
 		<hr>
-		<img src="{{ peliculas.imgfondo }}" alt="{{ peliculas.imgfondo }}"/>
+		<img src="{{ url_for('images', filename=peliculas.imgfondo) }}" alt="{{ peliculas.imgfondo }}"/>
 		<!-- https://data.whicdn.com/images/299003575/original.gif -->
 	</div>
 	<div id="cover">
-		<img src="{{ peliculas.poster }}" alt="{{ peliculas.poster }}"/>
+		<img src="{{ url_for('images', filename=peliculas.poster) }}" alt="{{ peliculas.poster }}"/>
 	</div>
 	<h1>{{ peliculas.titulo }}</h1>
 	<div id="state_full" class="state available" title="Costo">Desde {{ peliculas.precio }} €</div>
 	{% if user %}
 		<a class="status-basket" onclick="addToBasket(this, '{{ peliculas.titulo|safe }}', 'full')">
 			<span id="desc-basket">Añadir al carrito</span>
-			<div><img id="imagen-basket" src="/images/carrito-plus.png" alt="carrito"/></div>
+			<div><img id="imagen-basket" src="{{ url_for('images', filename='carrito-plus.png') }}" alt="carrito"/></div>
 		</a>
         
 	{% endif %}

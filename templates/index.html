@@ -4,12 +4,12 @@
 	<head>
         <title>Nitflix</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-		<link rel="shortcut icon" href="images/logotipo-aux.png" type="image/x-icon">
-		<link rel="stylesheet" type="text/css" href="styles/index.css">
-		<link rel="stylesheet" type="text/css" href="styles/general.css">
-		<script src="scripts/check.js"></script>
-		<script src="scripts/login.js"></script>
-		<script src="scripts/cookies.js"></script>
+		<link rel="shortcut icon" href="{{ url_for('images', filename='logotipo-aux.png') }}" type="image/x-icon">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('styles', filename='index.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('styles', filename='general.css') }}"/>
+		<script src="{{ url_for('scripts', filename='check.js') }}"></script>
+		<script src="{{ url_for('scripts', filename='login.js') }}"></script>
+		<script src="{{ url_for('scripts', filename='cookies.js') }}"></script>
 	</head>
 	<body onload="setLogin()">
     
@@ -17,11 +17,11 @@
     
 		<div id="login">
         
-            <img id="img_log" src="images/logotipo-aux.png" alt="logo-grande"/>
+            <img id="img_log" src="{{ url_for('images', filename='logotipo-aux.png') }}" alt="logo-grande"/>
         
 			<div id="login_ent">
 				
-				<form action="/login" method="POST" onsubmit="return check()">
+				<form action="{{ url_for('login') }}" method="POST" onsubmit="return check()">
 					<div class="input_mark">
 						<input {% block classN %}class="input_text"{% endblock %} type="text" placeholder="Usuario" name="username" id="name">
 					</div><br>
@@ -34,7 +34,7 @@
 					<input class="button" type="submit" value="Entrar">
 				</form> 
 			</div>
-			<a id="registro" href="sing_in">Registrarme</a>
+			<a id="registro" href="{{ url_for('sing_in') }}">Registrarme</a>
 		</div>
 		
 		 
